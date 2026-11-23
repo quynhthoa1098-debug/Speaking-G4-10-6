@@ -1,0 +1,2865 @@
+
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ENGLISH SPEAKING TEST - CUSTOMIZABLE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #eef6fc;
+      --card: #ffffff;
+      --text: #1b2a3a;
+      --muted: #5b6d7e;
+      --accent: #0f6e8c;
+      --accent-dark: #094f66;
+      --accent-soft: #e6f5fa;
+      --border: #bde4f4;
+      --shadow: 0 12px 36px rgba(15, 76, 108, 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    body {
+      font-family: 'Nunito', 'Segoe UI', Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Top Control Bar */
+    .topbar {
+      background: #ffffff;
+      border-bottom: 1px solid #dbe8f3;
+      padding: 8px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    }
+
+    .topbar-group {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .brand-pill {
+      background: #fef08a;
+      color: #854d0e;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      border: 1px solid #eab308;
+      letter-spacing: 0.4px;
+    }
+
+    select.profile-select {
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #1e293b;
+      background: #f8fafc;
+      cursor: pointer;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 8px;
+      padding: 7px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.16s ease;
+      background: #e2e8f0;
+      color: #1e293b;
+    }
+    .btn:hover { transform: translateY(-1px); filter: brightness(0.96); }
+    .btn:active { transform: translateY(0); }
+    .btn-primary { background: #0f6e8c; color: #fff; }
+    .btn-orange { background: #f97316; color: #fff; }
+    .btn-green { background: #16a34a; color: #fff; }
+    .btn-purple { background: #7c3aed; color: #fff; }
+    .btn-dark { background: #0f172a; color: #fff; }
+    .btn-outline { background: #fff; border: 1.5px solid #cbd5e1; color: #334155; }
+    .btn-outline.active { background: #e0f2fe; border-color: #0284c7; color: #0369a1; }
+
+    .save-status {
+      font-size: 12px;
+      color: #15803d;
+      background: #dcfce7;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    /* Slide Navigation Tabs */
+    .slide-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 20px 4px;
+      flex-wrap: wrap;
+    }
+    .nav-pill {
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1.5px solid #cbd5e1;
+      background: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .nav-pill:hover { border-color: #0f6e8c; color: #0f6e8c; }
+    .nav-pill.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 3px 10px rgba(15, 110, 140, 0.25);
+    }
+    .nav-pill-add {
+      border-style: dashed;
+      color: #0f6e8c;
+      border-color: #7cc6e8;
+    }
+
+    /* Main Stage */
+    .stage-wrap {
+      flex: 1;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: space-between;
+      padding: 10px 24px 16px;
+      gap: 12px;
+    }
+
+    .slide-card {
+      flex: 1;
+      width: 100%;
+      max-width: 1720px;
+      margin: 0 auto;
+      background: #f5fafe;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      border: 1.5px solid #d3e6f5;
+      padding: clamp(20px, 2.4vw, 40px) clamp(22px, 3vw, 48px);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Cover Slide */
+    .cover-grid {
+      display: grid;
+      grid-template-columns: minmax(260px, 370px) minmax(320px, 1.15fr) minmax(260px, 325px);
+      gap: clamp(20px, 2.6vw, 42px);
+      align-items: center;
+      width: 100%;
+    }
+    .photo-card {
+      background: #fff;
+      border: 2.5px solid #9bd6f2;
+      border-radius: 20px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 8px 22px rgba(14, 116, 144, 0.08);
+    }
+    .photo-drop {
+      width: 100%;
+      height: clamp(290px, 44vh, 450px);
+      border: 3px dashed #7cc6e8;
+      border-radius: 14px;
+      background: #f5fbff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      overflow: hidden;
+      position: relative;
+      transition: all 0.2s;
+    }
+    .photo-drop:hover { background: #eaf6fd; border-color: #0284c7; }
+    .photo-drop img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .photo-placeholder {
+      text-align: center;
+      color: #0e6f91;
+      padding: 16px;
+    }
+    .photo-placeholder strong { font-size: clamp(20px, 1.8vw, 26px); display: block; margin-bottom: 8px; }
+    .photo-placeholder span { font-size: 13.5px; color: #5b7b8c; }
+    .photo-actions {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      display: flex;
+      gap: 6px;
+    }
+    .mini-btn {
+      background: rgba(15, 23, 42, 0.8);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 7px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+    }
+    .mini-btn:hover { background: rgba(15, 23, 42, 0.96); }
+    .little-star {
+      color: #f97316;
+      font-weight: 900;
+      font-size: clamp(15px, 1.2vw, 19px);
+      letter-spacing: 1.2px;
+    }
+
+    .cover-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: clamp(12px, 1.5vh, 20px);
+    }
+    .eng4-badge {
+      background: #fef08a;
+      border: 2.5px solid #eab308;
+      color: #854d0e;
+      font-weight: 900;
+      padding: 7px 26px;
+      border-radius: 999px;
+      font-size: clamp(14px, 1.1vw, 18px);
+    }
+    .cover-title {
+      font-size: clamp(40px, 4vw, 68px);
+      font-weight: 900;
+      color: #0e6b85;
+      letter-spacing: 0.8px;
+      line-height: 1.05;
+    }
+    .grade-badge {
+      background: #f97316;
+      color: #fff;
+      font-size: clamp(24px, 2.2vw, 36px);
+      font-weight: 900;
+      padding: 12px 38px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(249, 115, 22, 0.28);
+    }
+    .editable-hint {
+      cursor: pointer;
+      position: relative;
+      transition: filter 0.15s;
+    }
+    .editable-hint:hover {
+      filter: brightness(0.95);
+      outline: 2px dashed rgba(15, 110, 140, 0.45);
+      outline-offset: 4px;
+    }
+
+    .name-box {
+      margin-top: 4px;
+      width: 100%;
+      background: #fff;
+      border: 3px solid #8bd0f0;
+      border-radius: 18px;
+      padding: 18px 24px;
+    }
+    .name-box label {
+      display: block;
+      font-size: clamp(14px, 1.15vw, 17px);
+      font-weight: 800;
+      color: #0284c7;
+      margin-bottom: 10px;
+    }
+    .name-input {
+      font-family: 'Quicksand', 'Nunito', sans-serif;
+      font-variant-ligatures: common-ligatures;
+      letter-spacing: 0.35px;
+      width: 100%;
+      border: none;
+      border-bottom: 3.5px dotted #334155;
+      font-size: clamp(22px, 2vw, 32px);
+      font-weight: 700;
+      color: #0f172a;
+      padding: 4px 2px 8px;
+      outline: none;
+      background: transparent;
+    }
+    .name-input::placeholder { color: #94a3b8; font-weight: 600; font-size: clamp(16px, 1.35vw, 20px); }
+
+    .cover-actions-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    /* Compact Warm-up Audio Panel on Cover Slide */
+    .intro-panel {
+      background: #ffffff;
+      border: 2px solid #9bd6f2;
+      border-radius: 18px;
+      padding: 12px 14px;
+      box-shadow: 0 6px 18px rgba(14, 116, 144, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+    .intro-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1.5px solid #e6f4fa;
+    }
+    .intro-title {
+      font-size: 14px;
+      font-weight: 900;
+      color: #0e6b85;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      letter-spacing: 0.2px;
+    }
+    .intro-edit-btn {
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #334155;
+      border-radius: 8px;
+      padding: 3px 8px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .intro-edit-btn:hover { background: #e2e8f0; }
+
+    .intro-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+    .intro-list {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .intro-btn {
+      width: 100%;
+      background: #f0f9ff;
+      border: 1.5px solid #bae6fd;
+      border-radius: 10px;
+      padding: 6px 9px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 7px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.14s ease;
+    }
+    .intro-btn:hover {
+      background: #e0f2fe;
+      border-color: #38bdf8;
+      transform: translateY(-1px);
+    }
+    .intro-btn.intro-q {
+      background: #fffbeb;
+      border-color: #fde68a;
+    }
+    .intro-btn.intro-q:hover {
+      background: #fef3c7;
+      border-color: #f59e0b;
+    }
+    .intro-btn.intro-outro {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+    }
+    .intro-btn.intro-outro:hover {
+      background: #dcfce7;
+      border-color: #4ade80;
+    }
+    .intro-btn.playing {
+      background: #ffffff;
+      border-color: #0f6e8c;
+      box-shadow: 0 0 0 3px #e0f2fe;
+    }
+    .intro-btn.done-item {
+      border-color: #86efac;
+    }
+    .intro-btn-left {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex: 1;
+      min-width: 0;
+    }
+    .intro-badge {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #0f6e8c;
+      color: #fff;
+      font-size: 11.5px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .intro-q .intro-badge { background: #f97316; }
+    .intro-outro .intro-badge { background: #16a34a; }
+    .intro-text {
+      font-size: 13px;
+      font-weight: 800;
+      color: #1e293b;
+      line-height: 1.25;
+      white-space: normal;
+    }
+    .intro-btn-right {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+    .intro-done-mark {
+      font-size: 10.5px;
+      font-weight: 900;
+      color: #15803d;
+    }
+    .intro-speaker {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #0f6e8c;
+      color: #fff;
+      font-size: 11.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.15s;
+    }
+    .intro-q .intro-speaker { background: #ea580c; }
+    .intro-outro .intro-speaker { background: #16a34a; }
+    .intro-btn.is-speaking .intro-speaker {
+      animation: pulseSpeaker 0.7s infinite alternate;
+      background: #16a34a;
+    }
+
+    /* Unit Slides */
+    .unit-grid {
+      display: grid;
+      grid-template-columns: 1.26fr 1fr;
+      gap: clamp(24px, 3vw, 50px);
+      align-items: center;
+      width: 100%;
+    }
+    .pics-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(14px, 1.6vw, 24px);
+    }
+    .pic-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 12px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.07);
+      border: 3.5px solid transparent;
+      position: relative;
+      aspect-ratio: 4 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      overflow: hidden;
+    }
+    .pic-card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12); }
+    .pic-card.active-pic {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 7px var(--accent-soft), 0 12px 26px rgba(15, 23, 42, 0.16);
+      transform: scale(1.03);
+      z-index: 2;
+    }
+    .pic-num {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: clamp(36px, 2.8vw, 44px);
+      height: clamp(36px, 2.8vw, 44px);
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 900;
+      font-size: clamp(16px, 1.3vw, 20px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
+      z-index: 3;
+    }
+    .pic-done-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #16a34a;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 2px solid #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+      z-index: 3;
+    }
+    .pic-content {
+      width: 100%;
+      height: 100%;
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .pic-content img.custom-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .pic-content svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .pic-edit-overlay {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      display: none;
+      gap: 5px;
+      z-index: 4;
+    }
+    .pic-card:hover .pic-edit-overlay {
+      display: flex;
+    }
+
+    .unit-right {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(10px, 1.3vh, 15px);
+    }
+    .unit-header-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .unit-title {
+      font-size: clamp(32px, 3vw, 46px);
+      font-weight: 900;
+      color: #0e6b85;
+      line-height: 1.12;
+    }
+    .unit-subtitle {
+      font-size: clamp(19px, 1.65vw, 26px);
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .unit-instruction {
+      font-size: clamp(14px, 1.1vw, 17px);
+      color: #475569;
+      margin-bottom: 2px;
+      font-weight: 500;
+    }
+
+    .q-list {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(9px, 1.1vh, 13px);
+    }
+    .q-btn {
+      width: 100%;
+      background: var(--accent-soft);
+      border: 3px solid var(--accent);
+      border-radius: 999px;
+      padding: clamp(9px, 1vh, 13px) clamp(14px, 1.4vw, 20px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      cursor: pointer;
+      transition: all 0.16s ease;
+      text-align: left;
+    }
+    .q-btn:hover { transform: translateX(4px); filter: brightness(0.98); }
+    .q-btn.playing {
+      background: #fff;
+      box-shadow: 0 0 0 5px var(--accent-soft), 0 8px 18px rgba(15, 23, 42, 0.12);
+      transform: scale(1.02);
+    }
+    .q-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex: 1;
+      min-width: 0;
+    }
+    .q-badge {
+      width: clamp(40px, 3vw, 48px);
+      height: clamp(40px, 3vw, 48px);
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 900;
+      font-size: clamp(17px, 1.3vw, 21px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .q-text-wrap {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .q-label-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .q-label {
+      font-size: clamp(19px, 1.5vw, 24px);
+      font-weight: 800;
+      color: #1e293b;
+    }
+    .q-done-pill {
+      font-size: 12px;
+      font-weight: 800;
+      background: #dcfce7;
+      color: #15803d;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid #86efac;
+    }
+    .q-script {
+      font-size: clamp(13.5px, 1.05vw, 16px);
+      color: #334155;
+      margin-top: 2px;
+      display: none;
+      font-weight: 600;
+    }
+    .q-answer {
+      font-size: clamp(12.5px, 0.95vw, 15px);
+      color: #0f766e;
+      font-weight: 700;
+      display: none;
+    }
+    body.show-scripts .q-script,
+    body.show-scripts .q-answer { display: block; }
+
+    .q-speaker {
+      width: clamp(42px, 3vw, 50px);
+      height: clamp(42px, 3vw, 50px);
+      border-radius: 50%;
+      background: var(--accent-dark);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: clamp(18px, 1.4vw, 22px);
+      transition: transform 0.15s;
+    }
+    .q-btn.is-speaking .q-speaker {
+      animation: pulseSpeaker 0.7s infinite alternate;
+      background: #16a34a;
+    }
+    @keyframes pulseSpeaker {
+      from { transform: scale(1); }
+      to { transform: scale(1.16); }
+    }
+
+    /* Active Question Spotlight Box */
+    .active-q-box {
+      background: #ffffff;
+      border: 2.5px solid var(--accent);
+      border-radius: 16px;
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
+    }
+    .active-q-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .active-q-tag {
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .active-q-actions {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .aq-btn {
+      border: 1.5px solid #cbd5e1;
+      background: #f8fafc;
+      color: #1e293b;
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .aq-btn:hover { background: #e2e8f0; }
+    .aq-btn.aq-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .aq-btn.aq-done { background: #16a34a; color: #fff; border-color: #16a34a; }
+    .active-q-text {
+      font-size: clamp(16px, 1.3vw, 20px);
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .active-q-ans {
+      font-size: clamp(14px, 1.1vw, 17px);
+      font-weight: 700;
+      color: #0f766e;
+      background: #f0fdfa;
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid #99f6e4;
+    }
+
+    .slide-footer {
+      position: absolute;
+      bottom: 14px;
+      right: 24px;
+      font-size: 15px;
+      font-weight: 800;
+      color: #64748b;
+    }
+
+    /* Bottom Bar */
+    .bottom-controls {
+      width: 100%;
+      max-width: 1720px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    /* Praise Bar */
+    .praise-bar {
+      flex: 1;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 10px 18px;
+      border: 1.5px solid #dbe8f3;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+    .praise-title {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #0f6e8c;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+    .praise-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      flex: 1;
+    }
+    .praise-btn {
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      background: #f1f5f9;
+      color: #1e293b;
+      border: 1.5px solid #e2e8f0;
+    }
+    .praise-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); }
+    .praise-btn.p-green { background: #dcfce7; border-color: #86efac; color: #166534; }
+    .praise-btn.p-amber { background: #fef3c7; border-color: #fcd34d; color: #92400e; }
+    .praise-btn.p-blue { background: #dbeafe; border-color: #93c5fd; color: #1e40af; }
+    .praise-btn.p-purple { background: #f3e8ff; border-color: #d8b4fe; color: #6b21a8; }
+    .praise-btn.p-pink { background: #fce7f3; border-color: #f9a8d4; color: #9d174d; }
+
+    .nav-arrows {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      background: #fff;
+      padding: 8px 14px;
+      border-radius: 14px;
+      border: 1.5px solid #dbe8f3;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+    }
+
+    /* Fullscreen Polish */
+    body.is-fullscreen .topbar { padding: 6px 16px; }
+    body.is-fullscreen .slide-nav { padding: 6px 16px 2px; }
+    body.is-fullscreen .stage-wrap { padding: 8px 20px 12px; }
+
+    /* Praise Toast Overlay */
+    .praise-toast {
+      position: fixed;
+      top: 76px;
+      left: 50%;
+      transform: translateX(-50%) scale(0.9);
+      background: linear-gradient(135deg, #16a34a, #0ea5e9);
+      color: #fff;
+      padding: 14px 34px;
+      border-radius: 999px;
+      font-size: 26px;
+      font-weight: 900;
+      box-shadow: 0 12px 28px rgba(14, 165, 233, 0.35);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.22s ease;
+      z-index: 120;
+    }
+    .praise-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+
+    /* Modals */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 16px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      background: #fff;
+      border-radius: 18px;
+      width: 100%;
+      max-width: 600px;
+      padding: 22px 24px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal h3 { font-size: 19px; color: #0f172a; }
+    .form-row { display: flex; flex-direction: column; gap: 6px; }
+    .form-row label { font-size: 13px; font-weight: 700; color: #334155; }
+    .form-row input, .form-row select, .form-row textarea {
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
+      font-size: 14px;
+      font-family: inherit;
+    }
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+
+    .hidden-input { display: none; }
+
+    /* Responsive */
+    @media (max-width: 1120px) {
+      .cover-grid {
+        grid-template-columns: minmax(250px, 340px) 1fr;
+      }
+      .intro-panel {
+        grid-column: 1 / -1;
+      }
+    }
+    @media (max-width: 960px) {
+      .unit-grid { grid-template-columns: 1fr; }
+      .slide-card { padding: 18px; }
+      .stage-wrap { padding: 10px 12px 14px; }
+    }
+    @media (max-width: 760px) {
+      .cover-grid { grid-template-columns: 1fr; }
+      .photo-drop { height: 260px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Embedded Data Container -->
+  <script id="embedded-data" type="application/json">{}</script>
+
+  <!-- Hidden File Inputs -->
+  <input type="file" id="studentPhotoInput" class="hidden-input" accept="image/*" />
+  <input type="file" id="cardPhotoInput" class="hidden-input" accept="image/*" />
+
+  <!-- Top Toolbar -->
+  <header class="topbar">
+    <div class="topbar-group">
+      <span class="brand-pill" id="topBrandPill">ENGLISH 4 • SPEAKING TEST</span>
+      <select id="profileSelect" class="profile-select" title="Chọn hồ sơ học sinh"></select>
+      <button class="btn btn-outline" id="btnNewProfile" title="Tạo hồ sơ học sinh mới (giữ nguyên bộ tiêu đề & câu hỏi hiện tại)">+ Học sinh mới</button>
+      <button class="btn btn-outline" id="btnDeleteProfile" title="Xóa hồ sơ hiện tại">🗑️ Xóa HS</button>
+      <span id="saveStatus" class="save-status">✓ Đã tự động lưu</span>
+    </div>
+
+    <div class="topbar-group">
+      <button class="btn btn-outline" id="btnToggleScripts" title="Hiện/Ẩn sẵn tất cả câu hỏi & gợi ý">👁️ Hiện tất cả chữ</button>
+      <button class="btn btn-orange" id="btnEditContent" title="Chỉnh sửa câu hỏi và gợi ý đáp án">✏️ Sửa câu hỏi</button>
+      <button class="btn btn-purple" id="btnVoiceSettings" title="Chọn giọng đọc & tốc độ">🔊 Giọng đọc</button>
+      <button class="btn btn-green" id="btnExportHtml" title="Xuất ra file HTML mới đã lưu sẵn ảnh & tên học sinh này">💾 Xuất file HTML riêng</button>
+      <button class="btn btn-dark" id="btnFullscreen" title="Bật/Tắt chế độ tràn toàn màn hình (phím F)">⛶ Toàn màn hình</button>
+    </div>
+  </header>
+
+  <!-- Slide Selector -->
+  <nav class="slide-nav" id="slideNav"></nav>
+
+  <!-- Main Stage -->
+  <main class="stage-wrap">
+    <section class="slide-card" id="slideCard"></section>
+
+    <div class="bottom-controls">
+      <!-- Praise Audio Bar -->
+      <section class="praise-bar">
+        <div class="praise-title">👏 Khen ngợi:</div>
+        <div class="praise-buttons" id="praiseButtons"></div>
+      </section>
+
+      <div class="nav-arrows">
+        <button class="btn btn-outline" id="btnPrevSlide">⬅ Trước</button>
+        <span id="slideCounter" style="font-size:14px; font-weight:800; color:#334155; padding:0 4px;"></span>
+        <button class="btn btn-primary" id="btnNextSlide">Tiếp ➡</button>
+      </div>
+    </div>
+  </main>
+
+  <div class="praise-toast" id="praiseToast">🌟 Good job!</div>
+
+  <!-- Modal: Voice Settings -->
+  <div class="modal-backdrop" id="voiceModal">
+    <div class="modal">
+      <h3>🔊 Cài đặt giọng đọc (Audio TTS)</h3>
+      <div class="form-row">
+        <label>Giọng đọc tiếng Anh (Edge có giọng Natural rất hay):</label>
+        <select id="voiceSelect"></select>
+      </div>
+      <div class="form-row">
+        <label>Tốc độ đọc: <span id="rateLabel">0.95</span>x</label>
+        <input type="range" id="rateRange" min="0.6" max="1.3" step="0.05" value="0.95" />
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-outline" id="btnTestVoice">Nghe thử</button>
+        <button class="btn btn-primary" id="btnCloseVoice">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Edit Cover Metadata (Grade, Title, Badges) -->
+  <div class="modal-backdrop" id="coverEditModal">
+    <div class="modal">
+      <h3>✏️ Sửa tiêu đề Trang bìa (Áp dụng mọi lớp)</h3>
+      <div class="form-row">
+        <label>Nhãn vàng trên cùng (VD: ENGLISH 3, ENGLISH 4, ENGLISH 5):</label>
+        <input type="text" id="ceTopBadge" />
+      </div>
+      <div class="form-row">
+        <label>Tiêu đề lớn (VD: SPEAKING TEST):</label>
+        <input type="text" id="ceMainTitle" />
+      </div>
+      <div class="form-row">
+        <label>Nhãn cam (VD: GRADE 3, GRADE 4, GRADE 5, STARTERS):</label>
+        <input type="text" id="ceGradeBadge" />
+      </div>
+      <div class="form-row">
+        <label>Dòng dưới ảnh học sinh (VD: ★ LITTLE STAR ★):</label>
+        <input type="text" id="ceStarLabel" />
+      </div>
+      <div class="form-row">
+        <label>Nhãn ô nhập tên học sinh:</label>
+        <input type="text" id="ceNameLabel" />
+      </div>
+      <div class="modal-actions" style="justify-content:space-between;">
+        <button class="btn btn-outline" id="btnOpenIntroFromCover">🎙️ Sửa Audio Warm-up</button>
+        <div style="display:flex; gap:8px;">
+          <button class="btn btn-outline" id="btnCancelCoverEdit">Hủy</button>
+          <button class="btn btn-primary" id="btnSaveCoverEdit">Lưu thay đổi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Edit Warm-up Intro, 5 Questions & Closing -->
+  <div class="modal-backdrop" id="introEditModal">
+    <div class="modal">
+      <h3>✏️ Sửa Audio Chào hỏi, 5 câu hỏi & Kết thúc</h3>
+      <div class="form-row">
+        <label>Audio 1 — Hello! (Chào hỏi):</label>
+        <textarea id="ieOpen1" rows="2"></textarea>
+      </div>
+      <div class="form-row">
+        <label>Audio 2 — Let's start (Động viên):</label>
+        <textarea id="ieOpen2" rows="2"></textarea>
+      </div>
+      <div style="border:1px solid #e2e8f0; padding:10px; border-radius:10px; background:#f8fafc; display:flex; flex-direction:column; gap:8px;">
+        <div class="form-row"><label>Question 1:</label><input type="text" id="ieQ0" /></div>
+        <div class="form-row"><label>Question 2:</label><input type="text" id="ieQ1" /></div>
+        <div class="form-row"><label>Question 3:</label><input type="text" id="ieQ2" /></div>
+        <div class="form-row"><label>Question 4:</label><input type="text" id="ieQ3" /></div>
+        <div class="form-row"><label>Question 5:</label><input type="text" id="ieQ4" /></div>
+      </div>
+      <div class="form-row">
+        <label>Audio kết thúc — Good luck!:</label>
+        <textarea id="ieClose" rows="2"></textarea>
+      </div>
+      <div class="modal-actions" style="justify-content:space-between;">
+        <button class="btn btn-outline" id="btnResetIntroDefault">↺ Mặc định</button>
+        <div style="display:flex; gap:8px;">
+          <button class="btn btn-outline" id="btnCancelIntroEdit">Hủy</button>
+          <button class="btn btn-primary" id="btnSaveIntroEdit">Lưu thay đổi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Edit Slide Titles & Questions -->
+  <div class="modal-backdrop" id="editModal">
+    <div class="modal">
+      <h3 id="editModalTitle">✏️ Sửa tiêu đề bài & câu hỏi</h3>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; background:#eff6ff; padding:12px; border-radius:12px; border:1px solid #bfdbfe;">
+        <div class="form-row">
+          <label>Tên tab (VD: Unit 6.1):</label>
+          <input type="text" id="edSlideLabel" />
+        </div>
+        <div class="form-row">
+          <label>Số trang góc phải:</label>
+          <input type="text" id="edSlidePage" />
+        </div>
+        <div class="form-row" style="grid-column:1 / -1;">
+          <label>Tiêu đề Unit / Lesson (cố định, không chỉnh sửa):</label>
+          <div id="edSlideUnit" style="padding:10px 12px; border:1px solid #cbd5e1; border-radius:9px; background:#f1f5f9; color:#334155; font-weight:800;"></div>
+        </div>
+        <div class="form-row" style="grid-column:1 / -1;">
+          <label>Chủ đề bài (VD: Our school facilities):</label>
+          <input type="text" id="edSlideSub" />
+        </div>
+        <div class="form-row" style="grid-column:1 / -1;">
+          <label>Dòng hướng dẫn:</label>
+          <input type="text" id="edSlideInstr" />
+        </div>
+        <div class="form-row" style="grid-column:1 / -1;">
+          <label>Màu chủ đề:</label>
+          <select id="edSlideTheme">
+            <option value="teal">Xanh ngọc (Unit 6)</option>
+            <option value="orange">Cam (Unit 7)</option>
+            <option value="purple">Tím (Unit 8)</option>
+            <option value="green">Xanh lá (Unit 9)</option>
+            <option value="coral">Cam đất (Unit 10)</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="editModalFields" style="display:flex; flex-direction:column; gap:10px;"></div>
+
+      <div class="modal-actions" style="justify-content:space-between;">
+        <button class="btn btn-outline" id="btnDeleteSlide" style="color:#dc2626; border-color:#fecaca;">🗑️ Xóa slide này</button>
+        <div style="display:flex; gap:8px;">
+          <button class="btn btn-outline" id="btnCancelEdit">Hủy</button>
+          <button class="btn btn-primary" id="btnSaveEdit">Lưu thay đổi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================
+    // 1. DEFAULT COVER, WARM-UP INTRO & SLIDE DEFINITIONS
+    // =========================================================
+    const DEFAULT_COVER = {
+      topBadge: 'ENGLISH 4',
+      mainTitle: 'SPEAKING TEST',
+      gradeBadge: 'GRADE 4',
+      starLabel: '★ LITTLE STAR ★',
+      nameLabel: "Student's Name (Họ và tên):"
+    };
+
+    const DEFAULT_INTRO = {
+      open1: "Hello! Welcome to our Speaking Test today! Are you ready for the speaking test?",
+      open2: "That's great! Don't be nervous. Just relax and do your best! Now, let me ask you some questions.",
+      questions: [
+        "What's your name?",
+        "How old are you?",
+        "How are you today?",
+        "Where are you from?",
+        "What is your favourite subject?"
+      ],
+      close: "Wonderful! Thank you for your answers! Okay! Let's begin the speaking test. Good luck!"
+    };
+
+    const THEMES = {
+      teal:   { accent: '#0e85a8', dark: '#085970', soft: '#e6f6fb' },
+      orange: { accent: '#ea7b1c', dark: '#a84f07', soft: '#fff3e6' },
+      purple: { accent: '#7e48b8', dark: '#542687', soft: '#f4ecfc' },
+      green:  { accent: '#1d8348', dark: '#11572e', soft: '#eaf7ef' },
+      coral:  { accent: '#d95d30', dark: '#993612', soft: '#fdf0ea' }
+    };
+
+    const BASE_UNIT_SLIDES = [
+      {
+        id: 'u6l1', label: 'Unit 6.1', pageNum: '1', themeKey: 'teal',
+        unit: 'Unit 6 – Lesson 1', subtitle: 'Our school facilities',
+        instruction: 'Click each button to listen, then answer.',
+        cards: [
+          { svg: 'mountains', q: "Where's your school?", a: "It's in the mountains." },
+          { svg: 'village',   q: "Where's your school?", a: "It's in the village." },
+          { svg: 'city',      q: "Where's your school?", a: "It's in the city." },
+          { svg: 'town',      q: "Where's your school?", a: "It's in the town." }
+        ]
+      },
+      {
+        id: 'u6l2', label: 'Unit 6.2', pageNum: '2', themeKey: 'teal',
+        unit: 'Unit 6 – Lesson 2', subtitle: 'Our school facilities',
+        instruction: 'Click each button to listen, then answer.',
+        cards: [
+          { svg: 'playground', q: "How many playgrounds are there at your school?", a: "There is one." },
+          { svg: 'computers',  q: "How many computer rooms are there at your school?", a: "There are two." },
+          { svg: 'garden',     q: "How many gardens are there at your school?", a: "There is one." },
+          { svg: 'building',   q: "How many buildings are there at your school?", a: "There is one." }
+        ]
+      },
+      {
+        id: 'u7l1', label: 'Unit 7.1', pageNum: '3', themeKey: 'orange',
+        unit: 'Unit 7 – Lesson 1', subtitle: 'Our timetables',
+        instruction: 'Click each button to listen, then answer.',
+        cards: [
+          { svg: 'vietnamese', q: "What subjects do you have today?", a: "I have Vietnamese." },
+          { svg: 'english',    q: "What subjects do you have today?", a: "I have English." },
+          { svg: 'maths',      q: "What subjects do you have today?", a: "I have maths." },
+          { svg: 'science',    q: "What subjects do you have today?", a: "I have science." }
+        ]
+      },
+      {
+        id: 'u7l2', label: 'Unit 7.2', pageNum: '4', themeKey: 'orange',
+        unit: 'Unit 7 – Lesson 2', subtitle: 'Our timetables',
+        instruction: 'Click each button to listen, then answer.',
+        cards: [
+          { svg: 'tt_art',     q: "When do you have art?", a: "I have it on Mondays." },
+          { svg: 'tt_music',   q: "When do you have music?", a: "I have it on Wednesdays." },
+          { svg: 'tt_geo',     q: "When do you have history and geography?", a: "I have it on Tuesdays and Fridays." },
+          { svg: 'tt_english', q: "When do you have English?", a: "I have it on Mondays, Tuesdays, Thursdays and Fridays." }
+        ]
+      },
+      {
+        id: 'u8l1', label: 'Unit 8.1', pageNum: '5', themeKey: 'purple',
+        unit: 'Unit 8 – Lesson 1', subtitle: 'My favourite subjects',
+        instruction: 'Click each button to listen, then answer.',
+        cards: [
+          { svg: 'art',   q: "What's your favourite subject?", a: "It's art." },
+          { svg: 'music', q: "What's your favourite subject?", a: "It's music." },
+          { svg: 'pe',    q: "What's your favourite subject?", a: "It's PE." },
+          { svg: 'it',    q: "What's your favourite subject?", a: "It's IT." }
+        ]
+      },
+      {
+        id: 'u8l2', label: 'Unit 8.2', pageNum: '6', themeKey: 'purple',
+        unit: 'Unit 8 – Lesson 2', subtitle: 'My favourite subjects',
+        instruction: 'Click each button to listen, then answer.',
+        cards: [
+          { svg: 'eng_teacher',   q: "Why do you like English?", a: "Because I want to be an English teacher." },
+          { svg: 'singer',        q: "Why do you like music?", a: "Because I want to be a singer." },
+          { svg: 'painter',       q: "Why do you like art?", a: "Because I want to be a painter." },
+          { svg: 'maths_teacher', q: "Why do you like maths?", a: "Because I want to be a maths teacher." }
+        ]
+      },
+      {
+        id: 'u9l1', label: 'Unit 9.1', pageNum: '7', themeKey: 'green',
+        unit: 'Unit 9 – Lesson 1', subtitle: 'Our sports day',
+        instruction: 'Click each button to listen, then answer.',
+        cards: [
+          { svg: 'cal_apr', q: "Is your sports day in April?", a: "Yes, it is." },
+          { svg: 'cal_may', q: "Is your sports day in May?", a: "Yes, it is." },
+          { svg: 'cal_jun', q: "Is your sports day in June?", a: "No, it isn't." },
+          { svg: 'cal_jul', q: "Is your sports day in July?", a: "No, it isn't." }
+        ]
+      },
+      {
+        id: 'u9l2', label: 'Unit 9.2', pageNum: '8', themeKey: 'green',
+        unit: 'Unit 9 – Lesson 2', subtitle: 'Our sports day',
+        instruction: 'Click each button to listen, then answer.',
+        cards: [
+          { svg: 'm9',  q: "When's your sports day?", a: "It's in September." },
+          { svg: 'm10', q: "When's your sports day?", a: "It's in October." },
+          { svg: 'm11', q: "When's your sports day?", a: "It's in November." },
+          { svg: 'm12', q: "When's your sports day?", a: "It's in December." }
+        ]
+      },
+      {
+        id: 'u10l1', label: 'Unit 10.1', pageNum: '9', themeKey: 'coral',
+        unit: 'Unit 10 – Lesson 1', subtitle: 'Our summer holidays',
+        instruction: 'Click each button to listen, then answer.',
+        cards: [
+          { svg: 'zoo',         q: "Were you at the zoo last summer?", a: "Yes, I was." },
+          { svg: 'beach',       q: "Were you on the beach last summer?", a: "No, I wasn't." },
+          { svg: 'campsite',    q: "Were you at the campsite last summer?", a: "Yes, I was." },
+          { svg: 'countryside', q: "Were you in the countryside last summer?", a: "No, I wasn't." }
+        ]
+      },
+      {
+        id: 'u10l2', label: 'Unit 10.2', pageNum: '10', themeKey: 'coral',
+        unit: 'Unit 10 – Lesson 2', subtitle: 'Our summer holidays',
+        instruction: 'Click each button to listen, then answer.',
+        cards: [
+          { svg: 'bangkok', q: "Where were you last summer?", a: "I was in Bangkok." },
+          { svg: 'sydney',  q: "Where were you last summer?", a: "I was in Sydney." },
+          { svg: 'tokyo',   q: "Where were you last summer?", a: "I was in Tokyo." },
+          { svg: 'london',  q: "Where were you last summer?", a: "I was in London." }
+        ]
+      }
+    ];
+
+    const PRAISE_ITEMS = [
+      { text: 'Good job!', icon: '👍', cls: 'p-green' },
+      { text: 'Excellent!', icon: '🌟', cls: 'p-amber' },
+      { text: 'Very good!', icon: '👏', cls: 'p-blue' },
+      { text: 'Exactly!', icon: '🎯', cls: 'p-purple' },
+      { text: 'Well done!', icon: '💪', cls: 'p-green' },
+      { text: 'Awesome!', icon: '🎉', cls: 'p-pink' },
+      { text: 'Great answer!', icon: '💖', cls: 'p-amber' },
+      { text: 'Nice try!', icon: '😊', cls: 'p-blue' }
+    ];
+
+    // =========================================================
+    // 2. CUSTOM VECTOR ARTWORKS FOR PICTURE CARDS
+    // =========================================================
+    function getCardSvg(key) {
+      const timetable = (cellsHtml) => `
+        <svg viewBox="0 0 240 180">
+          <rect width="240" height="180" rx="14" fill="#eef4f9"/>
+          <rect x="22" y="16" width="196" height="148" rx="12" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+          <rect x="34" y="28" width="28" height="12" rx="5" fill="#ef4444"/>
+          <rect x="70" y="28" width="28" height="12" rx="5" fill="#f59e0b"/>
+          <rect x="106" y="28" width="28" height="12" rx="5" fill="#10b981"/>
+          <rect x="142" y="28" width="28" height="12" rx="5" fill="#0284c7"/>
+          <rect x="178" y="28" width="28" height="12" rx="5" fill="#8b5cf6"/>
+          ${[0,1,2].map(r => [0,1,2,3,4].map(c =>
+            `<rect x="${34+c*36}" y="${50+r*36}" width="28" height="28" rx="6" fill="#edf2f7"/>`
+          ).join('')).join('')}
+          ${cellsHtml}
+        </svg>`;
+
+      const monthCal = (num, barColor) => `
+        <svg viewBox="0 0 240 180">
+          <rect width="240" height="180" rx="14" fill="#f5f8ef"/>
+          <rect x="52" y="22" width="136" height="136" rx="16" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+          <rect x="52" y="22" width="136" height="36" rx="14" fill="${barColor}"/>
+          <circle cx="88" cy="22" r="6" fill="#475569"/><circle cx="152" cy="22" r="6" fill="#475569"/>
+          <text x="120" y="124" text-anchor="middle" font-size="60" font-weight="900" fill="#1e293b">${num}</text>
+          <rect x="26" y="34" width="8" height="8" rx="2" fill="#22c55e" transform="rotate(15 30 38)"/>
+          <rect x="206" y="38" width="8" height="8" rx="2" fill="#f59e0b" transform="rotate(-15 210 42)"/>
+          <rect x="28" y="138" width="8" height="8" rx="2" fill="#ef4444"/>
+          <rect x="204" y="138" width="8" height="8" rx="2" fill="#3b82f6"/>
+        </svg>`;
+
+      const checkBadge = (ok) => ok
+        ? `<circle cx="206" cy="28" r="16" fill="#16a34a" stroke="#fff" stroke-width="3"/><path d="M198 28 l6 6 l11 -12" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>`
+        : `<circle cx="206" cy="28" r="16" fill="#dc2626" stroke="#fff" stroke-width="3"/><path d="M199 21 l14 14 M213 21 l-14 14" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>`;
+
+      const map = {
+        mountains: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#bae6fd"/>
+          <path d="M0 130 L55 55 L110 120 L165 40 L240 125 L240 180 L0 180 Z" fill="#15803d"/>
+          <path d="M0 140 L75 78 L145 140 L205 80 L240 125 L240 180 L0 180 Z" fill="#22c55e"/>
+          <path d="M0 135 Q120 118 240 138 L240 180 L0 180 Z" fill="#84cc16"/>
+          <circle cx="42" cy="36" r="16" fill="#fde047"/>
+          <g fill="#dc2626"><circle cx="80" cy="142" r="5"/><rect x="76" y="147" width="8" height="14" rx="3"/></g>
+          <g fill="#2563eb"><circle cx="115" cy="138" r="5"/><rect x="111" y="143" width="8" height="14" rx="3"/></g>
+          <g fill="#7c3aed"><circle cx="150" cy="144" r="5"/><rect x="146" y="149" width="8" height="14" rx="3"/></g>
+        </svg>`,
+        village: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#93c5fd"/>
+          <rect y="112" width="240" height="68" fill="#4ade80"/>
+          <circle cx="198" cy="36" r="20" fill="#facc15"/>
+          <ellipse cx="46" cy="38" rx="22" ry="11" fill="#fff"/>
+          <rect x="76" y="96" width="88" height="44" fill="#fef08a"/>
+          <polygon points="68,98 120,66 172,98" fill="#dc2626"/>
+          <rect x="112" y="114" width="16" height="26" fill="#78350f"/>
+          <rect x="86" y="108" width="14" height="14" fill="#bae6fd" stroke="#fff" stroke-width="2"/>
+          <rect x="140" y="108" width="14" height="14" fill="#bae6fd" stroke="#fff" stroke-width="2"/>
+          <line x1="120" y1="66" x2="120" y2="50" stroke="#dc2626" stroke-width="2"/>
+          <polygon points="120,50 132,54 120,58" fill="#dc2626"/>
+          <rect x="26" y="88" width="7" height="44" fill="#78350f"/><circle cx="29" cy="84" r="16" fill="#16a34a"/>
+          <rect x="206" y="88" width="7" height="44" fill="#78350f"/><circle cx="209" cy="84" r="16" fill="#16a34a"/>
+        </svg>`,
+        city: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#bae6fd"/>
+          <circle cx="195" cy="34" r="18" fill="#fef08a"/>
+          <rect x="20" y="60" width="46" height="110" fill="#0284c7"/>
+          <rect x="74" y="28" width="56" height="142" fill="#0369a1"/>
+          <rect x="138" y="48" width="50" height="122" fill="#0ea5e9"/>
+          <rect x="194" y="82" width="32" height="88" fill="#38bdf8"/>
+          <g fill="#e0f2fe">${[0,1,2,3,4,5].map(r=>`<rect x="82" y="${38+r*20}" width="16" height="10"/><rect x="106" y="${38+r*20}" width="16" height="10"/>`).join('')}</g>
+          <rect y="160" width="240" height="20" fill="#475569"/>
+        </svg>`,
+        town: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#93c5fd"/>
+          <rect y="132" width="240" height="48" fill="#475569"/>
+          <circle cx="198" cy="36" r="20" fill="#facc15"/>
+          <ellipse cx="46" cy="38" rx="22" ry="11" fill="#fff"/>
+          <rect x="76" y="96" width="88" height="44" fill="#fef08a"/>
+          <polygon points="68,98 120,66 172,98" fill="#dc2626"/>
+          <rect x="112" y="114" width="16" height="26" fill="#78350f"/>
+          <rect x="86" y="108" width="14" height="14" fill="#bae6fd" stroke="#fff" stroke-width="2"/>
+          <rect x="140" y="108" width="14" height="14" fill="#bae6fd" stroke="#fff" stroke-width="2"/>
+          <line x1="120" y1="66" x2="120" y2="50" stroke="#dc2626" stroke-width="2"/>
+          <polygon points="120,50 132,54 120,58" fill="#dc2626"/>
+        </svg>`,
+        playground: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#dcfce7"/>
+          <rect y="118" width="240" height="62" fill="#22c55e"/>
+          <rect x="52" y="54" width="44" height="72" fill="#dc2626" rx="4"/>
+          <polygon points="46,54 74,30 102,54" fill="#7c3aed"/>
+          <path d="M52 94 Q28 110 20 142 L36 144 Q42 120 62 106 Z" fill="#2563eb"/>
+          <path d="M96 86 Q135 104 148 144 L132 146 Q120 116 92 100 Z" fill="#2563eb"/>
+          <rect x="160" y="64" width="36" height="64" fill="#f59e0b" rx="4"/>
+          <polygon points="154,64 178,44 202,64" fill="#7c3aed"/>
+          <path d="M196 92 Q216 108 224 140 L210 142 Q204 118 190 104 Z" fill="#2563eb"/>
+        </svg>`,
+        computers: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#fef3c7"/>
+          <line x1="120" y1="10" x2="120" y2="170" stroke="#d97706" stroke-width="4"/>
+          <rect x="16" y="42" width="90" height="22" rx="4" fill="#0284c7"/>
+          <text x="61" y="57" text-anchor="middle" font-size="9" font-weight="800" fill="#fff">COMPUTER ROOM 1</text>
+          <rect x="134" y="42" width="90" height="22" rx="4" fill="#0284c7"/>
+          <text x="179" y="57" text-anchor="middle" font-size="9" font-weight="800" fill="#fff">COMPUTER ROOM 2</text>
+          <rect x="26" y="76" width="70" height="78" fill="#16a34a" rx="4"/>
+          <rect x="144" y="76" width="70" height="78" fill="#16a34a" rx="4"/>
+          <rect x="44" y="106" width="34" height="24" fill="#1e293b" rx="3"/>
+          <rect x="162" y="106" width="34" height="24" fill="#1e293b" rx="3"/>
+        </svg>`,
+        garden: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#93c5fd"/>
+          <circle cx="195" cy="38" r="20" fill="#facc15"/>
+          <ellipse cx="48" cy="36" rx="24" ry="12" fill="#fff"/>
+          <rect y="106" width="240" height="74" fill="#22c55e"/>
+          <circle cx="48" cy="136" r="6" fill="#f43f5e"/><circle cx="88" cy="148" r="6" fill="#facc15"/>
+          <circle cx="148" cy="134" r="6" fill="#ec4899"/><circle cx="192" cy="146" r="6" fill="#fb923c"/>
+        </svg>`,
+        building: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#f8fafc"/>
+          <rect x="34" y="34" width="172" height="122" fill="#f3a683" rx="4"/>
+          <rect x="28" y="28" width="184" height="8" fill="#334155"/>
+          ${[0,1,2].map(r=>[0,1,2,3,4,5].map(c=>
+            (r===2 && (c===2||c===3)) ? '' : `<rect x="${46+c*26}" y="${46+r*32}" width="16" height="20" fill="#3b7a8c" stroke="#fff" stroke-width="1.5"/>`
+          ).join('')).join('')}
+          <rect x="98" y="122" width="44" height="34" fill="#b91c1c"/>
+          <rect x="94" y="106" width="52" height="14" rx="3" fill="#fff"/>
+          <text x="120" y="116" text-anchor="middle" font-size="8" font-weight="800" fill="#334155">SCHOOL</text>
+          <rect x="86" y="156" width="68" height="8" fill="#475569"/>
+        </svg>`,
+        vietnamese: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#0f2952"/>
+          <g font-weight="900" font-size="22" text-anchor="middle">
+            <rect x="76" y="24" width="32" height="32" fill="#ec4899" rx="4"/><text x="92" y="48" fill="#fff">V</text>
+            <rect x="112" y="24" width="32" height="32" fill="#3b82f6" rx="4"/><text x="128" y="48" fill="#fff">U</text>
+            <rect x="148" y="24" width="32" height="32" fill="#22c55e" rx="4"/><text x="164" y="48" fill="#fff">A</text>
+            <rect x="42" y="64" width="32" height="32" fill="#ef4444" rx="4"/><text x="58" y="88" fill="#fff">T</text>
+            <rect x="78" y="64" width="32" height="32" fill="#06b6d4" rx="4"/><text x="94" y="88" fill="#fff">I</text>
+            <rect x="114" y="64" width="32" height="32" fill="#f59e0b" rx="4"/><text x="130" y="88" fill="#fff">Ế</text>
+            <rect x="150" y="64" width="32" height="32" fill="#8b5cf6" rx="4"/><text x="166" y="88" fill="#fff">N</text>
+            <rect x="186" y="64" width="32" height="32" fill="#10b981" rx="4"/><text x="202" y="88" fill="#fff">G</text>
+            <rect x="76" y="106" width="32" height="32" fill="#10b981" rx="4"/><text x="92" y="130" fill="#fff">V</text>
+            <rect x="112" y="106" width="32" height="32" fill="#ec4899" rx="4"/><text x="128" y="130" fill="#fff">I</text>
+            <rect x="148" y="106" width="32" height="32" fill="#3b82f6" rx="4"/><text x="164" y="130" fill="#fff">Ệ</text>
+            <rect x="184" y="106" width="32" height="32" fill="#ef4444" rx="4"/><text x="200" y="130" fill="#fff">T</text>
+          </g>
+        </svg>`,
+        english: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#f8fafc"/>
+          <circle cx="120" cy="64" r="34" fill="#fde0c6"/>
+          <path d="M86 58 Q120 20 154 58 L154 84 L86 84 Z" fill="#1e293b"/>
+          <circle cx="120" cy="68" r="24" fill="#fde0c6"/>
+          <circle cx="111" cy="65" r="3" fill="#1e293b"/><circle cx="129" cy="65" r="3" fill="#1e293b"/>
+          <path d="M113 77 Q120 83 127 77" fill="none" stroke="#e11d48" stroke-width="2.5" stroke-linecap="round"/>
+          <text x="120" y="138" text-anchor="middle" font-size="30" font-weight="900" fill="#dc2626">ENG<tspan fill="#2563eb">LISH</tspan></text>
+        </svg>`,
+        maths: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#4c1d95"/>
+          <rect x="28" y="20" width="184" height="96" rx="6" fill="#14532d" stroke="#d97706" stroke-width="6"/>
+          <text x="46" y="48" font-size="14" font-weight="700" fill="#fff">1 + 4 = C</text>
+          <text x="46" y="72" font-size="14" font-weight="700" fill="#fff">7x</text>
+          <text x="46" y="96" font-size="14" font-weight="700" fill="#fff">√A+B</text>
+          <path d="M136 90 L136 38 M120 68 L184 68" stroke="#fff" stroke-width="2"/>
+          <path d="M126 68 Q144 38 158 68 T182 68" fill="none" stroke="#fde047" stroke-width="2.5"/>
+          <rect x="136" y="106" width="54" height="62" rx="6" fill="#334155"/>
+          <rect x="142" y="114" width="42" height="14" fill="#bbf7d0"/>
+          <rect x="24" y="112" width="28" height="36" rx="6" fill="#f59e0b"/>
+        </svg>`,
+        science: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#dcfce7"/>
+          <rect y="136" width="240" height="44" fill="#bbf7d0"/>
+          <rect x="46" y="98" width="28" height="42" rx="6" fill="#86efac" stroke="#16a34a" stroke-width="2"/>
+          <path d="M60 98 L60 54" stroke="#15803d" stroke-width="3"/>
+          <ellipse cx="50" cy="64" rx="10" ry="6" fill="#22c55e" transform="rotate(-25 50 64)"/>
+          <ellipse cx="70" cy="54" rx="10" ry="6" fill="#16a34a" transform="rotate(25 70 54)"/>
+          <rect x="92" y="92" width="26" height="48" rx="3" fill="#4ade80" stroke="#15803d" stroke-width="2"/>
+          <rect x="130" y="92" width="26" height="48" rx="3" fill="#22c55e" stroke="#15803d" stroke-width="2"/>
+          <polygon points="178,94 190,94 202,140 166,140" fill="#16a34a"/>
+        </svg>`,
+        tt_art: timetable(`<rect x="34" y="86" width="28" height="28" rx="6" fill="#fff7ed" stroke="#f59e0b" stroke-width="2"/><circle cx="48" cy="100" r="9" fill="#fde68a"/><circle cx="44" cy="97" r="2" fill="#ef4444"/><circle cx="51" cy="97" r="2" fill="#3b82f6"/><circle cx="48" cy="104" r="2" fill="#22c55e"/>`),
+        tt_music: timetable(`<rect x="106" y="86" width="28" height="28" rx="6" fill="#fff7ed" stroke="#f59e0b" stroke-width="2"/><text x="120" y="107" text-anchor="middle" font-size="18" fill="#4f46e5">♫</text>`),
+        tt_geo: timetable(
+          `<rect x="70" y="86" width="28" height="28" rx="6" fill="#fff7ed" stroke="#f59e0b" stroke-width="2"/><circle cx="84" cy="100" r="9" fill="#0ea5e9"/><circle cx="82" cy="98" r="3" fill="#84cc16"/>
+           <rect x="178" y="86" width="28" height="28" rx="6" fill="#fff7ed" stroke="#f59e0b" stroke-width="2"/><circle cx="192" cy="100" r="9" fill="#0ea5e9"/><circle cx="190" cy="98" r="3" fill="#84cc16"/>`
+        ),
+        tt_english: timetable(
+          [0,1,3,4].map(c => {
+            const x = 34 + c*36;
+            return `<rect x="${x}" y="86" width="28" height="28" rx="6" fill="#fff" stroke="#f59e0b" stroke-width="2"/>
+                    <rect x="${x+4}" y="92" width="20" height="16" fill="#1d4ed8"/>
+                    <path d="M${x+4} ${92} L${x+24} ${108} M${x+24} ${92} L${x+4} ${108}" stroke="#fff" stroke-width="2.5"/>
+                    <path d="M${x+14} 92 V108 M${x+4} 100 H${x+24}" stroke="#ef4444" stroke-width="3"/>`;
+          }).join('')
+        ),
+        art: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#fce7f3"/>
+          <path d="M62 88 C62 46 178 40 180 86 C182 128 134 142 104 134 C82 128 62 114 62 88 Z" fill="#f5c98b"/>
+          <circle cx="95" cy="75" r="10" fill="#ef4444"/><circle cx="128" cy="68" r="10" fill="#eab308"/>
+          <circle cx="155" cy="84" r="10" fill="#3b82f6"/><circle cx="132" cy="112" r="10" fill="#22c55e"/>
+          <circle cx="88" cy="106" r="8" fill="#fce7f3"/>
+        </svg>`,
+        music: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#f8fafc"/>
+          <rect x="20" y="128" width="200" height="36" fill="#e2e8f0" rx="4"/>
+          ${[0,1,2,3,4].map(i=>`<rect x="${42+i*36}" y="128" width="14" height="22" fill="#1e293b"/>`).join('')}
+          <circle cx="66" cy="70" r="18" fill="#8d5524"/><rect x="50" y="88" width="32" height="38" rx="6" fill="#2563eb"/>
+          <circle cx="120" cy="64" r="18" fill="#fde0c6"/><rect x="102" y="82" width="36" height="44" rx="8" fill="#ec4899"/>
+          <circle cx="176" cy="70" r="18" fill="#fde0c6"/><rect x="160" y="88" width="32" height="38" rx="6" fill="#06b6d4"/>
+          <text x="54" y="34" font-size="22" fill="#475569">♪</text>
+          <text x="120" y="28" font-size="24" fill="#475569">♫</text>
+          <text x="184" y="34" font-size="22" fill="#475569">♩</text>
+        </svg>`,
+        pe: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#15803d"/>
+          <line x1="80" y1="0" x2="155" y2="180" stroke="#fff" stroke-width="5"/>
+          <circle cx="72" cy="108" r="22" fill="#fff" stroke="#1e293b" stroke-width="2"/>
+          <polygon points="72,96 81,103 77,114 67,114 63,103" fill="#dc2626"/>
+          <circle cx="115" cy="72" r="22" fill="#fff" stroke="#1e293b" stroke-width="2"/>
+          <polygon points="115,60 124,67 120,78 110,78 106,67" fill="#dc2626"/>
+          <circle cx="164" cy="112" r="22" fill="#fff" stroke="#1e293b" stroke-width="2"/>
+          <polygon points="164,100 173,107 169,118 159,118 155,107" fill="#1e293b"/>
+        </svg>`,
+        it: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#e2e8f0"/>
+          <rect x="46" y="24" width="148" height="92" rx="6" fill="#1e293b"/>
+          <rect x="54" y="32" width="132" height="74" fill="#0f172a"/>
+          <rect x="64" y="42" width="112" height="22" fill="#0284c7"/>
+          <rect x="64" y="72" width="52" height="26" fill="#334155"/>
+          <rect x="124" y="72" width="52" height="26" fill="#334155"/>
+          <polygon points="46,116 194,116 210,152 30,152" fill="#64748b"/>
+          <rect x="94" y="136" width="52" height="12" rx="2" fill="#475569"/>
+        </svg>`,
+        eng_teacher: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#f1f5f9"/>
+          <rect x="24" y="18" width="110" height="118" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+          <text x="79" y="38" text-anchor="middle" font-size="10" font-weight="800" fill="#ea580c">Simple Present Tense</text>
+          <text x="42" y="58" font-size="8" fill="#ef4444">I am / You are</text>
+          <text x="42" y="74" font-size="8" fill="#0284c7">He is / She is</text>
+          <rect x="142" y="28" width="82" height="76" fill="#1e293b" rx="4"/>
+          <text x="183" y="54" text-anchor="middle" font-size="9" fill="#fde047">MODAL VERBS</text>
+          <circle cx="148" cy="70" r="16" fill="#fde0c6"/>
+          <path d="M126 156 C126 106 170 106 170 156 Z" fill="#fff"/>
+          <rect x="128" y="144" width="40" height="28" fill="#ea580c"/>
+        </svg>`,
+        singer: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#31105c"/>
+          <polygon points="40,0 120,180 200,0" fill="#7c3aed" opacity="0.4"/>
+          <circle cx="120" cy="76" r="24" fill="#fde0c6"/>
+          <path d="M84 72 C84 36 156 36 156 72 L162 118 L78 118 Z" fill="#92400e"/>
+          <circle cx="120" cy="76" r="20" fill="#fde0c6"/>
+          <circle cx="112" cy="73" r="3" fill="#1e293b"/><circle cx="128" cy="73" r="3" fill="#1e293b"/>
+          <path d="M113 84 Q120 92 127 84" fill="#e11d48"/>
+          <polygon points="100,104 140,104 152,162 88,162" fill="#ec4899"/>
+          <rect x="117" y="96" width="6" height="28" fill="#cbd5e1"/><circle cx="120" cy="94" r="6" fill="#475569"/>
+          <text x="36" y="48" font-size="22" fill="#fde047">♫</text>
+          <text x="186" y="56" font-size="22" fill="#fde047">♪</text>
+        </svg>`,
+        painter: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#7dd3fc"/>
+          <polygon points="0,104 65,42 128,96 184,38 240,98 240,120 0,120" fill="#64748b"/>
+          <rect y="114" width="240" height="66" fill="#15803d"/>
+          <ellipse cx="185" cy="148" rx="52" ry="18" fill="#0284c7"/>
+          <circle cx="72" cy="88" r="10" fill="#fde0c6"/>
+          <rect x="64" y="100" width="16" height="36" fill="#1e293b"/>
+          <rect x="104" y="84" width="26" height="34" fill="#fff" stroke="#78350f" stroke-width="2"/>
+          <line x1="112" y1="118" x2="104" y2="152" stroke="#78350f" stroke-width="3"/>
+          <line x1="122" y1="118" x2="132" y2="152" stroke="#78350f" stroke-width="3"/>
+        </svg>`,
+        maths_teacher: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#fef3c7"/>
+          <rect x="26" y="28" width="188" height="118" rx="12" fill="#166534"/>
+          <text x="120" y="76" text-anchor="middle" font-size="22" font-weight="800" fill="#fff">2 + 3 = 5</text>
+          <text x="120" y="110" text-anchor="middle" font-size="18" font-weight="700" fill="#fde047">6 × 4 = 24</text>
+        </svg>`,
+        cal_apr: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#fff"/>
+          <rect x="52" y="20" width="136" height="142" rx="10" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+          <rect x="52" y="20" width="136" height="34" rx="8" fill="#dc2626"/>
+          <text x="120" y="43" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">APRIL</text>
+          <text x="120" y="128" text-anchor="middle" font-size="68" font-weight="900" fill="#1e293b">4</text>
+          ${checkBadge(true)}
+        </svg>`,
+        cal_may: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#f1f5f9"/>
+          <rect x="52" y="26" width="136" height="130" rx="18" fill="#ef4444"/>
+          <rect x="70" y="64" width="100" height="72" rx="6" fill="#fff"/>
+          <text x="120" y="114" text-anchor="middle" font-size="38" font-weight="900" fill="#334155">MAY</text>
+          ${checkBadge(true)}
+        </svg>`,
+        cal_jun: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#fff"/>
+          <rect x="52" y="22" width="136" height="138" rx="12" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+          <rect x="52" y="22" width="136" height="36" rx="10" fill="#dc2626"/>
+          <text x="120" y="46" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">JUNE</text>
+          <text x="120" y="128" text-anchor="middle" font-size="62" font-weight="900" fill="#1e293b">30</text>
+          ${checkBadge(false)}
+        </svg>`,
+        cal_jul: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#fff"/>
+          <rect x="52" y="22" width="136" height="138" rx="12" fill="#e2e8f0"/>
+          <rect x="52" y="22" width="136" height="34" rx="10" fill="#7f1d1d"/>
+          <text x="120" y="92" text-anchor="middle" font-size="24" font-weight="900" fill="#1e293b">JULY</text>
+          <text x="120" y="140" text-anchor="middle" font-size="48" font-weight="900" fill="#1e293b">1</text>
+          ${checkBadge(false)}
+        </svg>`,
+        m9:  monthCal('9',  '#2563eb'),
+        m10: monthCal('10', '#f97316'),
+        m11: monthCal('11', '#059669'),
+        m12: monthCal('12', '#7c3aed'),
+        zoo: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#a3e635"/>
+          <rect y="94" width="240" height="16" fill="#92400e"/>
+          <circle cx="145" cy="96" r="34" fill="#6b7280"/>
+          <circle cx="185" cy="94" r="28" fill="#6b7280"/>
+          <path d="M124 94 Q92 98 78 86" fill="none" stroke="#6b7280" stroke-width="10" stroke-linecap="round"/>
+          <circle cx="54" cy="78" r="14" fill="#fde0c6"/>
+          <rect x="40" y="94" width="28" height="44" rx="6" fill="#ec4899"/>
+          ${checkBadge(true)}
+        </svg>`,
+        beach: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="82" fill="#93c5fd"/>
+          <ellipse cx="48" cy="36" rx="22" ry="11" fill="#fff"/>
+          <rect y="82" width="240" height="44" fill="#0284c7"/>
+          <rect y="126" width="240" height="54" fill="#fde68a"/>
+          ${checkBadge(false)}
+        </svg>`,
+        campsite: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#0f172a"/>
+          <circle cx="46" cy="32" r="1.5" fill="#fff"/><circle cx="148" cy="28" r="1.5" fill="#fff"/><circle cx="192" cy="46" r="1.5" fill="#fff"/>
+          <rect y="138" width="240" height="42" fill="#14532d"/>
+          <polygon points="36,144 92,82 148,144" fill="#ea580c"/>
+          <polygon points="74,144 92,102 110,144" fill="#fb923c"/>
+          <path d="M168 144 Q176 114 184 144 Z" fill="#facc15"/>
+          <path d="M172 144 Q176 126 180 144 Z" fill="#ef4444"/>
+          ${checkBadge(true)}
+        </svg>`,
+        countryside: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="122" fill="#bae6fd"/>
+          <circle cx="38" cy="34" r="18" fill="#facc15"/>
+          <ellipse cx="52" cy="42" rx="22" ry="11" fill="#fff"/>
+          <rect y="122" width="240" height="58" fill="#4ade80"/>
+          ${checkBadge(false)}
+        </svg>`,
+        bangkok: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#1e3a8a"/>
+          <rect y="126" width="240" height="54" fill="#1d4ed8"/>
+          <polygon points="94,126 120,24 146,126" fill="#fbbf24"/>
+          <polygon points="64,126 78,66 92,126" fill="#f59e0b"/>
+          <polygon points="148,126 162,66 176,126" fill="#f59e0b"/>
+          <rect x="44" y="136" width="48" height="12" rx="4" fill="#fff"/>
+          <rect x="148" y="136" width="48" height="12" rx="4" fill="#fff"/>
+        </svg>`,
+        sydney: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#0284c7"/>
+          <rect y="114" width="240" height="66" fill="#0369a1"/>
+          <path d="M96 114 Q112 52 144 114 Z" fill="#fff"/>
+          <path d="M126 114 Q146 42 182 114 Z" fill="#f8fafc"/>
+          <path d="M164 114 Q184 62 212 114 Z" fill="#e2e8f0"/>
+          <rect x="34" y="116" width="48" height="14" rx="4" fill="#facc15"/>
+          <rect x="140" y="122" width="42" height="12" rx="4" fill="#facc15"/>
+        </svg>`,
+        tokyo: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#bae6fd"/>
+          <rect x="28" y="88" width="24" height="92" fill="#94a3b8"/>
+          <rect x="58" y="74" width="32" height="106" fill="#64748b"/>
+          <rect x="98" y="96" width="26" height="84" fill="#94a3b8"/>
+          <polygon points="142,166 156,48 170,166" fill="#dc2626"/>
+          <line x1="156" y1="34" x2="156" y2="52" stroke="#dc2626" stroke-width="4"/>
+          <circle cx="38" cy="38" r="34" fill="#f9a8d4" opacity="0.85"/>
+          <circle cx="198" cy="40" r="38" fill="#f472b6" opacity="0.85"/>
+        </svg>`,
+        london: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#fb923c"/>
+          <rect y="130" width="240" height="50" fill="#78350f" opacity="0.6"/>
+          <rect x="104" y="48" width="32" height="110" fill="#78350f"/>
+          <polygon points="100,50 120,16 140,50" fill="#451a03"/>
+          <circle cx="120" cy="68" r="10" fill="#fef08a"/>
+          <rect x="40" y="96" width="64" height="62" fill="#92400e"/>
+          <rect x="136" y="106" width="64" height="52" fill="#92400e"/>
+        </svg>`,
+        blank: `<svg viewBox="0 0 240 180">
+          <rect width="240" height="180" fill="#e2e8f0"/>
+          <text x="120" y="96" text-anchor="middle" font-size="16" font-weight="700" fill="#475569">Bấm 🖼️ Đổi ảnh</text>
+        </svg>`
+      };
+      return map[key] || map.blank;
+    }
+
+    // =========================================================
+    // 3. PERSISTENT STORAGE (IndexedDB + Embedded Fallback)
+    // =========================================================
+    const DB_NAME = 'English4SpeakingTestDB_v1';
+    const STORE_NAME = 'profiles';
+
+    function openDB() {
+      return new Promise((resolve, reject) => {
+        const req = indexedDB.open(DB_NAME, 1);
+        req.onupgradeneeded = () => {
+          const db = req.result;
+          if (!db.objectStoreNames.contains(STORE_NAME)) {
+            db.createObjectStore(STORE_NAME, { keyPath: 'id' });
+          }
+        };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    }
+
+    async function dbGetAllProfiles() {
+      const db = await openDB();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, 'readonly');
+        const req = tx.objectStore(STORE_NAME).getAll();
+        req.onsuccess = () => resolve(req.result || []);
+        req.onerror = () => reject(req.error);
+      });
+    }
+
+    async function dbSaveProfile(profile) {
+      const db = await openDB();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, 'readwrite');
+        tx.objectStore(STORE_NAME).put(profile);
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+      });
+    }
+
+    async function dbDeleteProfile(id) {
+      const db = await openDB();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, 'readwrite');
+        tx.objectStore(STORE_NAME).delete(id);
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+      });
+    }
+
+    function compressImageFile(file, maxW = 1000, quality = 0.86) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            let w = img.width, h = img.height;
+            if (w > maxW) {
+              h = Math.round((h * maxW) / w);
+              w = maxW;
+            }
+            const canvas = document.createElement('canvas');
+            canvas.width = w;
+            canvas.height = h;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, w, h);
+            resolve(canvas.toDataURL('image/jpeg', quality));
+          };
+          img.onerror = reject;
+          img.src = e.target.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // =========================================================
+    // 4. PROFILE & TEMPLATE DATA HELPERS
+    // =========================================================
+    let profiles = [];
+    let currentProfile = null;
+    let currentSlideIdx = 0; // 0 = Cover, 1..N = Unit slides
+    let pendingCardTarget = null;
+    let activeCardIndex = null;
+    let activeIntroKey = null;
+    let showActiveText = true;
+    let showActiveAnswer = false;
+
+    function cloneBaseUnitSlides() {
+      return JSON.parse(JSON.stringify(BASE_UNIT_SLIDES));
+    }
+
+    function cloneDefaultIntro() {
+      return JSON.parse(JSON.stringify(DEFAULT_INTRO));
+    }
+
+    function normalizeProfile(p) {
+      if (!p.coverMeta) p.coverMeta = { ...DEFAULT_COVER };
+      else p.coverMeta = { ...DEFAULT_COVER, ...p.coverMeta };
+      if (!p.introData) p.introData = cloneDefaultIntro();
+      else {
+        p.introData = {
+          open1: p.introData.open1 || DEFAULT_INTRO.open1,
+          open2: p.introData.open2 || DEFAULT_INTRO.open2,
+          questions: Array.isArray(p.introData.questions) && p.introData.questions.length === 5
+            ? p.introData.questions
+            : [...DEFAULT_INTRO.questions],
+          close: p.introData.close || DEFAULT_INTRO.close
+        };
+      }
+      if (!Array.isArray(p.unitSlides) || p.unitSlides.length === 0) {
+        p.unitSlides = cloneBaseUnitSlides();
+      }
+      if (!p.customCardImages) p.customCardImages = {};
+      if (!p.customQuestions) p.customQuestions = {};
+      if (!p.doneQuestions) p.doneQuestions = {};
+      if (!p.doneIntro) p.doneIntro = {};
+      return p;
+    }
+
+    function createEmptyProfile(name = 'Học sinh 1', inheritFrom = null) {
+      const base = {
+        id: 'hs_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+        studentName: '',
+        labelName: name,
+        studentPhoto: '',
+        coverMeta: inheritFrom ? JSON.parse(JSON.stringify(inheritFrom.coverMeta)) : { ...DEFAULT_COVER },
+        introData: inheritFrom && inheritFrom.introData ? JSON.parse(JSON.stringify(inheritFrom.introData)) : cloneDefaultIntro(),
+        unitSlides: inheritFrom ? JSON.parse(JSON.stringify(inheritFrom.unitSlides)) : cloneBaseUnitSlides(),
+        customCardImages: inheritFrom ? JSON.parse(JSON.stringify(inheritFrom.customCardImages || {})) : {},
+        customQuestions: inheritFrom ? JSON.parse(JSON.stringify(inheritFrom.customQuestions || {})) : {},
+        doneQuestions: {},
+        doneIntro: {}
+      };
+      return normalizeProfile(base);
+    }
+
+    function getTotalSlides() {
+      return 1 + currentProfile.unitSlides.length;
+    }
+
+    function getCurrentUnitSlide() {
+      if (currentSlideIdx === 0) return null;
+      return currentProfile.unitSlides[currentSlideIdx - 1] || null;
+    }
+
+    function showSavedBadge(msg = '✓ Đã tự động lưu') {
+      const el = document.getElementById('saveStatus');
+      el.textContent = msg;
+      el.style.opacity = '1';
+    }
+
+    async function saveCurrentProfile() {
+      if (!currentProfile) return;
+      currentProfile.labelName = currentProfile.studentName.trim() || currentProfile.labelName || 'Học sinh';
+      await dbSaveProfile(currentProfile);
+      renderProfileSelector();
+      showSavedBadge('✓ Đã lưu vào máy');
+    }
+
+    // =========================================================
+    // 5. AUDIO: SPEECH SYNTHESIS (Edge-safe) & PRAISE CHIME
+    // =========================================================
+    let voices = [];
+    let selectedVoiceURI = localStorage.getItem('eng4_voice_uri') || '';
+    let speechRate = parseFloat(localStorage.getItem('eng4_speech_rate') || '0.95');
+    let audioCtx = null;
+    let speakTimeout = null;
+
+    function playChime() {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const notes = [523.25, 659.25, 783.99, 1046.5];
+        notes.forEach((freq, i) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.value = freq;
+          const t = audioCtx.currentTime + i * 0.065;
+          gain.gain.setValueAtTime(0.001, t);
+          gain.gain.exponentialRampToValueAtTime(0.14, t + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(t);
+          osc.stop(t + 0.26);
+        });
+      } catch (e) {}
+    }
+
+    function playClickPop() {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(660, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.06);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.09);
+      } catch (e) {}
+    }
+
+    function loadVoices() {
+      if (!('speechSynthesis' in window)) return;
+      voices = window.speechSynthesis.getVoices() || [];
+      const enVoices = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith('en'));
+      const list = enVoices.length ? enVoices : voices;
+
+      const select = document.getElementById('voiceSelect');
+      select.innerHTML = '';
+      list.forEach(v => {
+        const opt = document.createElement('option');
+        opt.value = v.voiceURI;
+        opt.textContent = `${v.name} (${v.lang})`;
+        select.appendChild(opt);
+      });
+
+      if (!selectedVoiceURI || !list.some(v => v.voiceURI === selectedVoiceURI)) {
+        const preferred =
+          list.find(v => /aria|jenny|sonia|natural|google us/i.test(v.name)) ||
+          list.find(v => v.lang.toLowerCase() === 'en-us') ||
+          list[0];
+        if (preferred) selectedVoiceURI = preferred.voiceURI;
+      }
+      select.value = selectedVoiceURI;
+    }
+
+    if ('speechSynthesis' in window) {
+      loadVoices();
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+
+    function speakText(text, onStart, onEnd) {
+      if (!('speechSynthesis' in window)) {
+        if (onEnd) onEnd();
+        return;
+      }
+      clearTimeout(speakTimeout);
+      window.speechSynthesis.cancel();
+      speakTimeout = setTimeout(() => {
+        if (!voices.length) loadVoices();
+        window.speechSynthesis.resume();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = 'en-US';
+        utter.rate = speechRate;
+        const v = voices.find(item => item.voiceURI === selectedVoiceURI);
+        if (v) utter.voice = v;
+        utter.onstart = () => { if (onStart) onStart(); };
+        utter.onend = () => { if (onEnd) onEnd(); };
+        utter.onerror = () => { if (onEnd) onEnd(); };
+        window.speechSynthesis.speak(utter);
+      }, 60);
+    }
+
+    let toastTimer = null;
+    function triggerPraise(phrase) {
+      playChime();
+      setTimeout(() => speakText(phrase), 180);
+      const toast = document.getElementById('praiseToast');
+      toast.textContent = `🌟 ${phrase}`;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 1700);
+    }
+
+    // =========================================================
+    // 6. FULLSCREEN CONTROLLER
+    // =========================================================
+    function updateFullscreenBtn() {
+      const btn = document.getElementById('btnFullscreen');
+      const isFs = !!document.fullscreenElement;
+      document.body.classList.toggle('is-fullscreen', isFs);
+      btn.textContent = isFs ? '🗗 Thoát toàn màn hình' : '⛶ Toàn màn hình';
+    }
+
+    async function toggleFullscreen() {
+      try {
+        if (!document.fullscreenElement) {
+          await document.documentElement.requestFullscreen();
+        } else {
+          await document.exitFullscreen();
+        }
+      } catch (e) {
+        alert('Trình duyệt không cho phép tự bật toàn màn hình. Bạn có thể bấm phím F11 trên bàn phím nhé!');
+      }
+    }
+
+    document.getElementById('btnFullscreen').addEventListener('click', toggleFullscreen);
+    document.addEventListener('fullscreenchange', updateFullscreenBtn);
+
+    // =========================================================
+    // 7. SEQUENTIAL QUESTION PROGRESSION (Q1 -> Q2 -> Q3 -> Q4 -> Next Lesson)
+    // =========================================================
+    async function goNextQuestionSequential() {
+      if (currentSlideIdx === 0) {
+        if (currentProfile.unitSlides.length > 0) {
+          currentSlideIdx = 1;
+          activeCardIndex = null;
+          renderSlide();
+          playQuestion(0);
+        }
+        return;
+      }
+
+      const slide = getCurrentUnitSlide();
+      if (!slide) return;
+
+      if (activeCardIndex === null) {
+        playQuestion(0);
+        return;
+      }
+
+      if (!currentProfile.doneQuestions) currentProfile.doneQuestions = {};
+      currentProfile.doneQuestions[`${slide.id}_${activeCardIndex}`] = true;
+      await saveCurrentProfile();
+
+      if (activeCardIndex < slide.cards.length - 1) {
+        playQuestion(activeCardIndex + 1);
+      } else {
+        if (currentSlideIdx < getTotalSlides() - 1) {
+          currentSlideIdx++;
+          activeCardIndex = null;
+          showActiveAnswer = false;
+          renderSlide();
+          playQuestion(0);
+        } else {
+          syncQuestionHighlights(null);
+          renderActiveQuestionBox();
+          triggerPraise('Well done! Test finished!');
+        }
+      }
+    }
+
+    // =========================================================
+    // 8. COVER WARM-UP AUDIO LOGIC
+    // =========================================================
+    function getIntroText(key) {
+      const data = currentProfile.introData || DEFAULT_INTRO;
+      if (key === 'open1') return data.open1;
+      if (key === 'open2') return data.open2;
+      if (key === 'close') return data.close;
+      if (key.startsWith('q')) {
+        const idx = parseInt(key.slice(1), 10);
+        return (data.questions && data.questions[idx]) || '';
+      }
+      return '';
+    }
+
+    function syncIntroHighlights(speakingKey = null) {
+      document.querySelectorAll('.intro-btn').forEach(btn => {
+        const key = btn.dataset.introKey;
+        const done = !!(currentProfile.doneIntro && currentProfile.doneIntro[key]);
+        btn.classList.toggle('playing', key === activeIntroKey);
+        btn.classList.toggle('is-speaking', key === speakingKey);
+        btn.classList.toggle('done-item', done);
+        const right = btn.querySelector('.intro-btn-right');
+        let mark = right.querySelector('.intro-done-mark');
+        if (done && !mark) {
+          mark = document.createElement('span');
+          mark.className = 'intro-done-mark';
+          mark.textContent = '✓';
+          right.prepend(mark);
+        } else if (!done && mark) {
+          mark.remove();
+        }
+      });
+    }
+
+    async function playIntroItem(key) {
+      const text = getIntroText(key);
+      if (!text) return;
+      activeIntroKey = key;
+      if (!currentProfile.doneIntro) currentProfile.doneIntro = {};
+      currentProfile.doneIntro[key] = true;
+      playClickPop();
+      syncIntroHighlights(key);
+      await saveCurrentProfile();
+      speakText(
+        text,
+        () => syncIntroHighlights(key),
+        () => syncIntroHighlights(null)
+      );
+    }
+
+    // =========================================================
+    // 9. RENDER UI
+    // =========================================================
+    function renderProfileSelector() {
+      const select = document.getElementById('profileSelect');
+      select.innerHTML = '';
+      profiles.forEach((p, idx) => {
+        const opt = document.createElement('option');
+        opt.value = p.id;
+        opt.textContent = p.studentName.trim()
+          ? `👤 ${p.studentName.trim()}`
+          : `👤 ${p.labelName || ('Học sinh ' + (idx + 1))}`;
+        if (currentProfile && p.id === currentProfile.id) opt.selected = true;
+        select.appendChild(opt);
+      });
+    }
+
+    function renderSlideNav() {
+      const nav = document.getElementById('slideNav');
+      nav.innerHTML = '';
+
+      const coverBtn = document.createElement('button');
+      coverBtn.className = 'nav-pill' + (currentSlideIdx === 0 ? ' active' : '');
+      coverBtn.textContent = 'Trang bìa';
+      coverBtn.onclick = () => { currentSlideIdx = 0; activeCardIndex = null; renderSlide(); };
+      nav.appendChild(coverBtn);
+
+      currentProfile.unitSlides.forEach((s, i) => {
+        const idx = i + 1;
+        const btn = document.createElement('button');
+        btn.className = 'nav-pill' + (idx === currentSlideIdx ? ' active' : '');
+        btn.textContent = s.label || `Bài ${idx}`;
+        btn.onclick = () => {
+          currentSlideIdx = idx;
+          activeCardIndex = null;
+          showActiveAnswer = false;
+          renderSlide();
+        };
+        nav.appendChild(btn);
+      });
+
+      const addBtn = document.createElement('button');
+      addBtn.className = 'nav-pill nav-pill-add';
+      addBtn.textContent = '+ Thêm slide';
+      addBtn.title = 'Thêm một slide bài học mới';
+      addBtn.onclick = async () => {
+        const num = currentProfile.unitSlides.length + 1;
+        const newSlide = {
+          id: 'custom_' + Date.now(),
+          label: `Bài ${num}`,
+          pageNum: String(num),
+          themeKey: 'teal',
+          unit: `Unit ${num} – Lesson 1`,
+          subtitle: 'Topic name',
+          instruction: 'Click each button to listen, then answer.',
+          cards: [
+            { svg: 'blank', q: 'Question 1?', a: 'Sample answer 1.' },
+            { svg: 'blank', q: 'Question 2?', a: 'Sample answer 2.' },
+            { svg: 'blank', q: 'Question 3?', a: 'Sample answer 3.' },
+            { svg: 'blank', q: 'Question 4?', a: 'Sample answer 4.' }
+          ]
+        };
+        currentProfile.unitSlides.push(newSlide);
+        currentSlideIdx = currentProfile.unitSlides.length;
+        activeCardIndex = null;
+        await saveCurrentProfile();
+        renderSlide();
+      };
+      nav.appendChild(addBtn);
+
+      document.getElementById('slideCounter').textContent = `${currentSlideIdx + 1} / ${getTotalSlides()}`;
+    }
+
+    function getQuestionData(slide, cardIdx) {
+      const key = `${slide.id}_${cardIdx}`;
+      const custom = currentProfile.customQuestions && currentProfile.customQuestions[key];
+      return {
+        q: (custom && custom.q) ? custom.q : slide.cards[cardIdx].q,
+        a: (custom && custom.a) ? custom.a : slide.cards[cardIdx].a
+      };
+    }
+
+    function isQuestionDone(slideId, cardIdx) {
+      return !!(currentProfile.doneQuestions && currentProfile.doneQuestions[`${slideId}_${cardIdx}`]);
+    }
+
+    function applyTheme(themeKey) {
+      const theme = THEMES[themeKey];
+      const root = document.documentElement;
+      if (!theme) {
+        root.style.setProperty('--accent', '#0f6e8c');
+        root.style.setProperty('--accent-dark', '#094f66');
+        root.style.setProperty('--accent-soft', '#e6f5fa');
+      } else {
+        root.style.setProperty('--accent', theme.accent);
+        root.style.setProperty('--accent-dark', theme.dark);
+        root.style.setProperty('--accent-soft', theme.soft);
+      }
+    }
+
+    function renderActiveQuestionBox() {
+      const box = document.getElementById('activeQuestionBox');
+      if (!box) return;
+      const slide = getCurrentUnitSlide();
+      if (!slide || activeCardIndex === null) {
+        box.style.display = 'none';
+        return;
+      }
+      const qa = getQuestionData(slide, activeCardIndex);
+      const done = isQuestionDone(slide.id, activeCardIndex);
+      box.style.display = 'flex';
+      box.innerHTML = `
+        <div class="active-q-top">
+          <span class="active-q-tag">🎯 Question ${activeCardIndex + 1} / ${slide.cards.length} · Làm lần lượt theo thứ tự</span>
+          <div class="active-q-actions">
+            <button type="button" class="aq-btn aq-primary" id="aqReplay">🔊 Nghe lại</button>
+            <button type="button" class="aq-btn" id="aqToggleText">${showActiveText ? '🙈 Ẩn chữ' : '👁️ Hiện chữ'}</button>
+            <button type="button" class="aq-btn" id="aqToggleAns">${showActiveAnswer ? 'Ẩn gợi ý' : '💡 Gợi ý đáp án'}</button>
+            <button type="button" class="aq-btn ${done ? 'aq-done' : ''}" id="aqMarkDone">${done ? '✓ Đã trả lời' : '☆ Đánh dấu xong'}</button>
+          </div>
+        </div>
+        ${showActiveText ? `<div class="active-q-text">“${escapeHtml(qa.q)}”</div>` : ''}
+        ${showActiveAnswer ? `<div class="active-q-ans">Gợi ý trả lời: ${escapeHtml(qa.a)}</div>` : ''}
+      `;
+
+      document.getElementById('aqReplay').onclick = () => playQuestion(activeCardIndex);
+      document.getElementById('aqToggleText').onclick = () => { showActiveText = !showActiveText; renderActiveQuestionBox(); };
+      document.getElementById('aqToggleAns').onclick = () => { showActiveAnswer = !showActiveAnswer; renderActiveQuestionBox(); };
+      document.getElementById('aqMarkDone').onclick = async () => {
+        if (!currentProfile.doneQuestions) currentProfile.doneQuestions = {};
+        const key = `${slide.id}_${activeCardIndex}`;
+        if (currentProfile.doneQuestions[key]) delete currentProfile.doneQuestions[key];
+        else currentProfile.doneQuestions[key] = true;
+        await saveCurrentProfile();
+        syncQuestionHighlights();
+        renderActiveQuestionBox();
+      };
+    }
+
+    function syncQuestionHighlights(speakingIdx = null) {
+      const slide = getCurrentUnitSlide();
+      if (!slide) return;
+      document.querySelectorAll('.pic-card').forEach(pc => {
+        const i = parseInt(pc.dataset.cardIdx, 10);
+        pc.classList.toggle('active-pic', i === activeCardIndex);
+        let badge = pc.querySelector('.pic-done-badge');
+        const done = isQuestionDone(slide.id, i);
+        if (done && !badge) {
+          badge = document.createElement('span');
+          badge.className = 'pic-done-badge';
+          badge.textContent = '✓ Xong';
+          pc.appendChild(badge);
+        } else if (!done && badge) {
+          badge.remove();
+        }
+      });
+
+      document.querySelectorAll('.q-btn').forEach(btn => {
+        const i = parseInt(btn.dataset.qIdx, 10);
+        btn.classList.toggle('playing', i === activeCardIndex);
+        btn.classList.toggle('is-speaking', i === speakingIdx);
+        const row = btn.querySelector('.q-label-row');
+        let pill = row.querySelector('.q-done-pill');
+        const done = isQuestionDone(slide.id, i);
+        if (done && !pill) {
+          pill = document.createElement('span');
+          pill.className = 'q-done-pill';
+          pill.textContent = '✓ Xong';
+          row.appendChild(pill);
+        } else if (!done && pill) {
+          pill.remove();
+        }
+      });
+    }
+
+    function introBtnHtml(key, badge, labelText, extraCls = '', tooltip = '') {
+      const isPlaying = activeIntroKey === key ? ' playing' : '';
+      const isDone = !!(currentProfile.doneIntro && currentProfile.doneIntro[key]);
+      const doneCls = isDone ? ' done-item' : '';
+      return `
+        <button type="button" class="intro-btn ${extraCls}${isPlaying}${doneCls}" data-intro-key="${key}" title="${escapeAttr(tooltip || labelText)}">
+          <div class="intro-btn-left">
+            <span class="intro-badge">${badge}</span>
+            <span class="intro-text">${escapeHtml(labelText)}</span>
+          </div>
+          <div class="intro-btn-right">
+            ${isDone ? `<span class="intro-done-mark">✓</span>` : ''}
+            <span class="intro-speaker">🔊</span>
+          </div>
+        </button>
+      `;
+    }
+
+    function renderSlide() {
+      const cm = currentProfile.coverMeta || DEFAULT_COVER;
+      const intro = currentProfile.introData || DEFAULT_INTRO;
+      document.getElementById('topBrandPill').textContent = `${cm.topBadge} • ${cm.mainTitle}`;
+      renderSlideNav();
+      const card = document.getElementById('slideCard');
+
+      if (currentSlideIdx === 0) {
+        applyTheme(null);
+        const hasPhoto = !!currentProfile.studentPhoto;
+        const qListHtml = intro.questions.map((qText, idx) =>
+          introBtnHtml(`q${idx}`, String(idx + 1), qText, 'intro-q', qText)
+        ).join('');
+
+        card.innerHTML = `
+          <div class="cover-grid">
+            <div class="photo-card">
+              <div class="photo-drop" id="studentPhotoDrop" title="Bấm để chọn hoặc đổi ảnh học sinh">
+                ${hasPhoto
+                  ? `<img src="${currentProfile.studentPhoto}" alt="Student Photo" />`
+                  : `<div class="photo-placeholder">
+                       <strong>Student Photo</strong>
+                       <span>Bấm vào đây để chọn ảnh học sinh<br/>(Tự động lưu vĩnh viễn)</span>
+                     </div>`}
+                <div class="photo-actions">
+                  <button type="button" class="mini-btn" id="btnPickStudentPhoto">📷 ${hasPhoto ? 'Đổi ảnh' : 'Chọn ảnh'}</button>
+                  ${hasPhoto ? `<button type="button" class="mini-btn" id="btnClearStudentPhoto">✖ Xóa</button>` : ''}
+                </div>
+              </div>
+              <div class="little-star editable-hint" id="editStarTrigger" title="Bấm để sửa chữ">${escapeHtml(cm.starLabel)}</div>
+            </div>
+
+            <div class="cover-right">
+              <div class="eng4-badge editable-hint" id="editTopBadgeTrigger" title="Bấm để sửa">${escapeHtml(cm.topBadge)}</div>
+              <div class="cover-title editable-hint" id="editMainTitleTrigger" title="Bấm để sửa">${escapeHtml(cm.mainTitle)}</div>
+              <div class="grade-badge editable-hint" id="editGradeBadgeTrigger" title="Bấm để sửa (VD: GRADE 3, GRADE 5...)">${escapeHtml(cm.gradeBadge)}</div>
+              <div class="name-box">
+                <label for="studentNameInput">${escapeHtml(cm.nameLabel)}</label>
+                <input id="studentNameInput" class="name-input" type="text"
+                  placeholder="Nhập họ và tên học sinh tại đây..."
+                  value="${escapeAttr(currentProfile.studentName || '')}" />
+              </div>
+              <div class="cover-actions-row">
+                <button type="button" class="btn btn-orange" id="btnStartSpeaking">▶ Bắt đầu kiểm tra (Slide 2 - Q1)</button>
+                <button type="button" class="btn btn-outline" id="btnInlineEditCover">✏️ Sửa tiêu đề bìa</button>
+              </div>
+            </div>
+
+            <div class="intro-panel">
+              <div class="intro-header">
+                <div class="intro-title">🎙️ Warm-up</div>
+                <button type="button" class="intro-edit-btn" id="btnEditIntro" title="Chỉnh sửa lời chào, 5 câu hỏi & lời kết">✏️ Edit</button>
+              </div>
+
+              <div class="intro-row-2">
+                ${introBtnHtml('open1', '👋', 'Hello!', '', intro.open1)}
+                ${introBtnHtml('open2', '😊', "Let's start", '', intro.open2)}
+              </div>
+
+              <div class="intro-list">
+                ${qListHtml}
+              </div>
+
+              <div>
+                ${introBtnHtml('close', '🌟', 'Good luck!', 'intro-outro', intro.close)}
+              </div>
+            </div>
+          </div>
+        `;
+
+        document.getElementById('studentPhotoDrop').onclick = (e) => {
+          if (e.target.id === 'btnClearStudentPhoto') return;
+          document.getElementById('studentPhotoInput').click();
+        };
+
+        const clearBtn = document.getElementById('btnClearStudentPhoto');
+        if (clearBtn) {
+          clearBtn.onclick = async (e) => {
+            e.stopPropagation();
+            currentProfile.studentPhoto = '';
+            await saveCurrentProfile();
+            renderSlide();
+          };
+        }
+
+        const nameInput = document.getElementById('studentNameInput');
+        let nameTimer = null;
+        nameInput.addEventListener('input', () => {
+          currentProfile.studentName = nameInput.value;
+          clearTimeout(nameTimer);
+          nameTimer = setTimeout(() => saveCurrentProfile(), 250);
+        });
+
+        card.querySelectorAll('.intro-btn').forEach(btn => {
+          btn.onclick = () => playIntroItem(btn.dataset.introKey);
+        });
+
+        document.getElementById('btnEditIntro').onclick = openIntroEditModal;
+        document.getElementById('btnStartSpeaking').onclick = () => goNextQuestionSequential();
+        document.getElementById('btnInlineEditCover').onclick = openCoverEditModal;
+        ['editTopBadgeTrigger', 'editMainTitleTrigger', 'editGradeBadgeTrigger', 'editStarTrigger'].forEach(id => {
+          document.getElementById(id).onclick = openCoverEditModal;
+        });
+      } else {
+        const slide = getCurrentUnitSlide();
+        if (!slide) { currentSlideIdx = 0; renderSlide(); return; }
+        applyTheme(slide.themeKey);
+
+        const picsHtml = slide.cards.map((c, idx) => {
+          const imgKey = `${slide.id}_${idx}`;
+          const customImg = currentProfile.customCardImages && currentProfile.customCardImages[imgKey];
+          const isActive = activeCardIndex === idx ? ' active-pic' : '';
+          const done = isQuestionDone(slide.id, idx);
+          return `
+            <div class="pic-card${isActive}" data-card-idx="${idx}">
+              <span class="pic-num">${idx + 1}</span>
+              ${done ? `<span class="pic-done-badge">✓ Xong</span>` : ''}
+              <div class="pic-content">
+                ${customImg
+                  ? `<img class="custom-img" src="${customImg}" alt="Picture ${idx + 1}" />`
+                  : getCardSvg(c.svg)}
+              </div>
+              <div class="pic-edit-overlay">
+                <button type="button" class="mini-btn btn-change-card-img" data-idx="${idx}">🖼️ Đổi ảnh</button>
+                ${customImg ? `<button type="button" class="mini-btn btn-reset-card-img" data-idx="${idx}">↺</button>` : ''}
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        const qHtml = slide.cards.map((c, idx) => {
+          const qa = getQuestionData(slide, idx);
+          const playingCls = activeCardIndex === idx ? ' playing' : '';
+          const done = isQuestionDone(slide.id, idx);
+          return `
+            <button type="button" class="q-btn${playingCls}" data-q-idx="${idx}">
+              <div class="q-left">
+                <span class="q-badge">${idx + 1}</span>
+                <div class="q-text-wrap">
+                  <div class="q-label-row">
+                    <span class="q-label">Question ${idx + 1}</span>
+                    ${done ? `<span class="q-done-pill">✓ Xong</span>` : ''}
+                  </div>
+                  <span class="q-script">“${escapeHtml(qa.q)}”</span>
+                  <span class="q-answer">Gợi ý: ${escapeHtml(qa.a)}</span>
+                </div>
+              </div>
+              <span class="q-speaker">🔊</span>
+            </button>
+          `;
+        }).join('');
+
+        card.innerHTML = `
+          <div class="unit-grid">
+            <div class="pics-grid">${picsHtml}</div>
+            <div class="unit-right">
+              <div class="unit-header-row">
+                <div>
+                  <div class="unit-title">${escapeHtml(slide.unit)}</div>
+                  <div class="unit-subtitle editable-hint" id="editUnitSubTrigger" title="Bấm để sửa chủ đề">${escapeHtml(slide.subtitle)}</div>
+                </div>
+              </div>
+              <div class="unit-instruction">${escapeHtml(slide.instruction || 'Click Question 1 to start. After the student answers, press SPACE to continue to the next question.')}</div>
+              <div class="q-list">${qHtml}</div>
+              <div class="active-q-box" id="activeQuestionBox" style="display:none;"></div>
+            </div>
+          </div>
+          <div class="slide-footer">${escapeHtml(slide.pageNum || '')}</div>
+        `;
+
+        card.querySelectorAll('.q-btn').forEach(btn => {
+          btn.onclick = () => {
+            const idx = parseInt(btn.dataset.qIdx, 10);
+            playQuestion(idx);
+          };
+        });
+
+        card.querySelectorAll('.pic-card').forEach(pc => {
+          pc.onclick = (e) => {
+            if (e.target.closest('.pic-edit-overlay')) return;
+            const idx = parseInt(pc.dataset.cardIdx, 10);
+            playQuestion(idx);
+          };
+        });
+
+        card.querySelectorAll('.btn-change-card-img').forEach(btn => {
+          btn.onclick = (e) => {
+            e.stopPropagation();
+            pendingCardTarget = `${slide.id}_${btn.dataset.idx}`;
+            document.getElementById('cardPhotoInput').click();
+          };
+        });
+
+        card.querySelectorAll('.btn-reset-card-img').forEach(btn => {
+          btn.onclick = async (e) => {
+            e.stopPropagation();
+            const key = `${slide.id}_${btn.dataset.idx}`;
+            if (currentProfile.customCardImages) delete currentProfile.customCardImages[key];
+            await saveCurrentProfile();
+            renderSlide();
+          };
+        });
+
+        document.getElementById('editUnitSubTrigger').onclick = openUnitEditModal;
+
+        renderActiveQuestionBox();
+      }
+    }
+
+    function playQuestion(idx) {
+      const slide = getCurrentUnitSlide();
+      if (!slide) return;
+      activeCardIndex = idx;
+      showActiveAnswer = false;
+      playClickPop();
+      syncQuestionHighlights(idx);
+      renderActiveQuestionBox();
+      const qa = getQuestionData(slide, idx);
+      speakText(
+        qa.q,
+        () => syncQuestionHighlights(idx),
+        () => syncQuestionHighlights(null)
+      );
+    }
+
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+    }
+    function escapeAttr(str) {
+      return escapeHtml(str);
+    }
+
+    function renderPraiseBar() {
+      const wrap = document.getElementById('praiseButtons');
+      wrap.innerHTML = '';
+      PRAISE_ITEMS.forEach(item => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `praise-btn ${item.cls}`;
+        btn.innerHTML = `${item.icon} ${item.text}`;
+        btn.onclick = () => triggerPraise(item.text);
+        wrap.appendChild(btn);
+      });
+    }
+
+    // =========================================================
+    // 10. MODALS FOR EDITING COVER, WARM-UP INTRO & UNIT SLIDES
+    // =========================================================
+    function openCoverEditModal() {
+      const cm = currentProfile.coverMeta || DEFAULT_COVER;
+      document.getElementById('ceTopBadge').value = cm.topBadge;
+      document.getElementById('ceMainTitle').value = cm.mainTitle;
+      document.getElementById('ceGradeBadge').value = cm.gradeBadge;
+      document.getElementById('ceStarLabel').value = cm.starLabel;
+      document.getElementById('ceNameLabel').value = cm.nameLabel;
+      document.getElementById('coverEditModal').classList.add('open');
+    }
+
+    document.getElementById('btnOpenIntroFromCover').onclick = () => {
+      document.getElementById('coverEditModal').classList.remove('open');
+      openIntroEditModal();
+    };
+    document.getElementById('btnCancelCoverEdit').onclick = () => {
+      document.getElementById('coverEditModal').classList.remove('open');
+    };
+    document.getElementById('btnSaveCoverEdit').onclick = async () => {
+      currentProfile.coverMeta = {
+        topBadge: document.getElementById('ceTopBadge').value.trim() || 'ENGLISH',
+        mainTitle: document.getElementById('ceMainTitle').value.trim() || 'SPEAKING TEST',
+        gradeBadge: document.getElementById('ceGradeBadge').value.trim() || 'GRADE 4',
+        starLabel: document.getElementById('ceStarLabel').value.trim() || '★ LITTLE STAR ★',
+        nameLabel: document.getElementById('ceNameLabel').value.trim() || "Student's Name:"
+      };
+      await saveCurrentProfile();
+      document.getElementById('coverEditModal').classList.remove('open');
+      renderSlide();
+    };
+
+    function openIntroEditModal() {
+      const data = currentProfile.introData || DEFAULT_INTRO;
+      document.getElementById('ieOpen1').value = data.open1;
+      document.getElementById('ieOpen2').value = data.open2;
+      for (let i = 0; i < 5; i++) {
+        document.getElementById(`ieQ${i}`).value = (data.questions && data.questions[i]) || '';
+      }
+      document.getElementById('ieClose').value = data.close;
+      document.getElementById('introEditModal').classList.add('open');
+    }
+
+    document.getElementById('btnCancelIntroEdit').onclick = () => {
+      document.getElementById('introEditModal').classList.remove('open');
+    };
+    document.getElementById('btnResetIntroDefault').onclick = () => {
+      document.getElementById('ieOpen1').value = DEFAULT_INTRO.open1;
+      document.getElementById('ieOpen2').value = DEFAULT_INTRO.open2;
+      for (let i = 0; i < 5; i++) {
+        document.getElementById(`ieQ${i}`).value = DEFAULT_INTRO.questions[i];
+      }
+      document.getElementById('ieClose').value = DEFAULT_INTRO.close;
+    };
+    document.getElementById('btnSaveIntroEdit').onclick = async () => {
+      currentProfile.introData = {
+        open1: document.getElementById('ieOpen1').value.trim() || DEFAULT_INTRO.open1,
+        open2: document.getElementById('ieOpen2').value.trim() || DEFAULT_INTRO.open2,
+        questions: [0, 1, 2, 3, 4].map(i =>
+          document.getElementById(`ieQ${i}`).value.trim() || DEFAULT_INTRO.questions[i]
+        ),
+        close: document.getElementById('ieClose').value.trim() || DEFAULT_INTRO.close
+      };
+      await saveCurrentProfile();
+      document.getElementById('introEditModal').classList.remove('open');
+      renderSlide();
+    };
+
+    function openUnitEditModal() {
+      const slide = getCurrentUnitSlide();
+      if (!slide) return;
+      document.getElementById('editModalTitle').textContent = `✏️ Sửa bài: ${slide.unit}`;
+      document.getElementById('edSlideLabel').value = slide.label || '';
+      document.getElementById('edSlidePage').value = slide.pageNum || '';
+      document.getElementById('edSlideUnit').textContent = slide.unit || '';
+      document.getElementById('edSlideSub').value = slide.subtitle || '';
+      document.getElementById('edSlideInstr').value = slide.instruction || '';
+      document.getElementById('edSlideTheme').value = slide.themeKey || 'teal';
+
+      const wrap = document.getElementById('editModalFields');
+      wrap.innerHTML = slide.cards.map((c, idx) => {
+        const qa = getQuestionData(slide, idx);
+        return `
+          <div style="border:1px solid #e2e8f0; padding:10px; border-radius:10px; background:#f8fafc;">
+            <div class="form-row">
+              <label>Question ${idx + 1} (Câu hỏi đọc bằng Audio):</label>
+              <input type="text" data-edit-q="${idx}" value="${escapeAttr(qa.q)}" />
+            </div>
+            <div class="form-row" style="margin-top:6px;">
+              <label>Gợi ý đáp án:</label>
+              <input type="text" data-edit-a="${idx}" value="${escapeAttr(qa.a)}" />
+            </div>
+          </div>
+        `;
+      }).join('');
+      document.getElementById('btnDeleteSlide').style.display = currentProfile.unitSlides.length > 1 ? 'inline-flex' : 'none';
+      document.getElementById('editModal').classList.add('open');
+    }
+
+    document.getElementById('btnCancelEdit').onclick = () => {
+      document.getElementById('editModal').classList.remove('open');
+    };
+    document.getElementById('btnSaveEdit').onclick = async () => {
+      const slide = getCurrentUnitSlide();
+      if (!slide) return;
+      slide.label = document.getElementById('edSlideLabel').value.trim() || slide.label;
+      slide.pageNum = document.getElementById('edSlidePage').value.trim();
+      slide.subtitle = document.getElementById('edSlideSub').value.trim();
+      slide.instruction = document.getElementById('edSlideInstr').value.trim();
+      slide.themeKey = document.getElementById('edSlideTheme').value;
+
+      if (!currentProfile.customQuestions) currentProfile.customQuestions = {};
+      slide.cards.forEach((c, idx) => {
+        const qVal = document.querySelector(`[data-edit-q="${idx}"]`).value.trim();
+        const aVal = document.querySelector(`[data-edit-a="${idx}"]`).value.trim();
+        c.q = qVal;
+        c.a = aVal;
+        currentProfile.customQuestions[`${slide.id}_${idx}`] = { q: qVal, a: aVal };
+      });
+      await saveCurrentProfile();
+      document.getElementById('editModal').classList.remove('open');
+      renderSlide();
+    };
+
+    document.getElementById('btnDeleteSlide').onclick = async () => {
+      if (currentProfile.unitSlides.length <= 1) return;
+      const slide = getCurrentUnitSlide();
+      if (!confirm(`Xóa slide "${slide.unit}"?`)) return;
+      currentProfile.unitSlides.splice(currentSlideIdx - 1, 1);
+      if (currentSlideIdx >= getTotalSlides()) currentSlideIdx = getTotalSlides() - 1;
+      activeCardIndex = null;
+      await saveCurrentProfile();
+      document.getElementById('editModal').classList.remove('open');
+      renderSlide();
+    };
+
+    document.getElementById('btnEditContent').onclick = () => {
+      if (currentSlideIdx === 0) openCoverEditModal();
+      else openUnitEditModal();
+    };
+
+    // =========================================================
+    // 11. EVENT HANDLERS & EXPORT STANDALONE HTML
+    // =========================================================
+    document.getElementById('studentPhotoInput').addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const dataUrl = await compressImageFile(file, 800, 0.88);
+      currentProfile.studentPhoto = dataUrl;
+      await saveCurrentProfile();
+      renderSlide();
+      e.target.value = '';
+    });
+
+    document.getElementById('cardPhotoInput').addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file || !pendingCardTarget) return;
+      const dataUrl = await compressImageFile(file, 900, 0.86);
+      if (!currentProfile.customCardImages) currentProfile.customCardImages = {};
+      currentProfile.customCardImages[pendingCardTarget] = dataUrl;
+      await saveCurrentProfile();
+      renderSlide();
+      pendingCardTarget = null;
+      e.target.value = '';
+    });
+
+    document.getElementById('profileSelect').addEventListener('change', (e) => {
+      const id = e.target.value;
+      const found = profiles.find(p => p.id === id);
+      if (found) {
+        currentProfile = normalizeProfile(found);
+        location.hash = 'profile=' + encodeURIComponent(found.id);
+        activeCardIndex = null;
+        activeIntroKey = null;
+        renderSlide();
+      }
+    });
+
+    document.getElementById('btnNewProfile').addEventListener('click', async () => {
+      const name = prompt('Nhập tên hồ sơ học sinh mới (sẽ giữ nguyên bộ tiêu đề, ảnh bài học & câu hỏi bạn đã chỉnh):', `Học sinh ${profiles.length + 1}`);
+      if (name === null) return;
+      const p = createEmptyProfile(name.trim() || `Học sinh ${profiles.length + 1}`, currentProfile);
+      p.studentName = name.trim();
+      profiles.push(p);
+      currentProfile = p;
+      await dbSaveProfile(p);
+      location.hash = 'profile=' + encodeURIComponent(p.id);
+      renderProfileSelector();
+      currentSlideIdx = 0;
+      activeCardIndex = null;
+      activeIntroKey = null;
+      renderSlide();
+      showSavedBadge('✓ Đã tạo hồ sơ mới');
+    });
+
+    document.getElementById('btnDeleteProfile').addEventListener('click', async () => {
+      if (profiles.length <= 1) {
+        if (!confirm('Bạn muốn xóa ảnh & tên của học sinh hiện tại để làm mới (giữ nguyên bộ tiêu đề & câu hỏi)?')) return;
+        currentProfile.studentName = '';
+        currentProfile.studentPhoto = '';
+        currentProfile.doneQuestions = {};
+        currentProfile.doneIntro = {};
+        activeIntroKey = null;
+        await saveCurrentProfile();
+        renderSlide();
+        return;
+      }
+      const label = currentProfile.studentName || currentProfile.labelName;
+      if (!confirm(`Xóa hồ sơ "${label}"?`)) return;
+      await dbDeleteProfile(currentProfile.id);
+      profiles = profiles.filter(p => p.id !== currentProfile.id);
+      currentProfile = normalizeProfile(profiles[0]);
+      location.hash = 'profile=' + encodeURIComponent(currentProfile.id);
+      activeIntroKey = null;
+      renderProfileSelector();
+      renderSlide();
+    });
+
+    document.getElementById('btnToggleScripts').addEventListener('click', function () {
+      document.body.classList.toggle('show-scripts');
+      this.classList.toggle('active');
+    });
+
+    // Voice Modal
+    document.getElementById('btnVoiceSettings').onclick = () => {
+      loadVoices();
+      document.getElementById('rateRange').value = speechRate;
+      document.getElementById('rateLabel').textContent = speechRate;
+      document.getElementById('voiceModal').classList.add('open');
+    };
+    document.getElementById('btnCloseVoice').onclick = () => document.getElementById('voiceModal').classList.remove('open');
+    document.getElementById('voiceSelect').onchange = (e) => {
+      selectedVoiceURI = e.target.value;
+      localStorage.setItem('eng4_voice_uri', selectedVoiceURI);
+    };
+    document.getElementById('rateRange').oninput = (e) => {
+      speechRate = parseFloat(e.target.value);
+      document.getElementById('rateLabel').textContent = speechRate;
+      localStorage.setItem('eng4_speech_rate', speechRate);
+    };
+    document.getElementById('btnTestVoice').onclick = () => speakText('Hello! Welcome to our Speaking Test today! Good job!');
+
+    // Slide Navigation Buttons & Keyboard Shortcuts
+    document.getElementById('btnPrevSlide').onclick = () => {
+      if (currentSlideIdx > 0) {
+        currentSlideIdx--;
+        activeCardIndex = null;
+        showActiveAnswer = false;
+        renderSlide();
+      }
+    };
+    document.getElementById('btnNextSlide').onclick = () => {
+      if (currentSlideIdx < getTotalSlides() - 1) {
+        currentSlideIdx++;
+        activeCardIndex = null;
+        showActiveAnswer = false;
+        renderSlide();
+      }
+    };
+
+    document.addEventListener('keydown', (e) => {
+      if (['INPUT', 'SELECT', 'TEXTAREA'].includes(e.target.tagName) || e.target.isContentEditable) return;
+      if (document.querySelector('.modal-backdrop.open')) return;
+      if (e.key === 'ArrowRight') document.getElementById('btnNextSlide').click();
+      if (e.key === 'ArrowLeft') document.getElementById('btnPrevSlide').click();
+      if (e.code === 'Space' || e.key === ' ') {
+        if (e.target.closest && e.target.closest('.praise-btn')) return;
+        e.preventDefault();
+        if (currentSlideIdx > 0 && activeCardIndex !== null) {
+          goNextQuestionSequential();
+        }
+      }
+      if (e.key.toLowerCase() === 'f') toggleFullscreen();
+    });
+
+    // Export Standalone HTML
+    document.getElementById('btnExportHtml').addEventListener('click', () => {
+      const clone = document.documentElement.cloneNode(true);
+      clone.querySelector('body').classList.remove('is-fullscreen');
+      clone.querySelectorAll('.modal-backdrop').forEach(m => m.classList.remove('open'));
+      const toast = clone.querySelector('#praiseToast');
+      if (toast) toast.classList.remove('show');
+      const dataScript = clone.querySelector('#embedded-data');
+      const payload = JSON.stringify(currentProfile).replace(/</g, '\\u003c');
+      dataScript.textContent = payload;
+
+      const htmlString = '<!DOCTYPE html>\n' + clone.outerHTML;
+      const blob = new Blob([htmlString], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const safeName = (currentProfile.studentName || currentProfile.labelName || 'HocSinh')
+        .replace(/[^a-zA-Z0-9\u00C0-\u024F\u1E00-\u1EFF_-]+/g, '_');
+      const safeGrade = (currentProfile.coverMeta?.gradeBadge || 'Grade')
+        .replace(/[^a-zA-Z0-9_-]+/g, '');
+      a.href = url;
+      a.download = `SpeakingTest_${safeGrade}_${safeName}.html`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showSavedBadge('✓ Đã xuất file HTML riêng');
+    });
+
+    // =========================================================
+    // 12. INIT ON LOAD
+    // =========================================================
+    async function init() {
+      renderPraiseBar();
+
+      let embedded = null;
+      try {
+        const raw = document.getElementById('embedded-data').textContent.trim();
+        if (raw && raw !== '{}') embedded = JSON.parse(raw);
+      } catch (e) {}
+
+      try {
+        profiles = (await dbGetAllProfiles()).map(normalizeProfile);
+      } catch (e) {
+        profiles = [];
+      }
+
+      if (embedded && embedded.id) {
+        const norm = normalizeProfile(embedded);
+        const existingIdx = profiles.findIndex(p => p.id === norm.id);
+        if (existingIdx === -1) {
+          profiles.unshift(norm);
+          await dbSaveProfile(norm);
+        }
+      }
+
+      if (profiles.length === 0) {
+        const def = createEmptyProfile('Học sinh 1');
+        profiles.push(def);
+        await dbSaveProfile(def);
+      }
+
+      const hashMatch = location.hash.match(/profile=([^&]+)/);
+      const hashId = hashMatch ? decodeURIComponent(hashMatch[1]) : null;
+      currentProfile =
+        (hashId && profiles.find(p => p.id === hashId)) ||
+        (embedded && embedded.id && profiles.find(p => p.id === embedded.id)) ||
+        profiles[0];
+
+      renderProfileSelector();
+      renderSlide();
+    }
+
+    init();
+  </script>
+</body>
+</html>
